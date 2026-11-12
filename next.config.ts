@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Keep the build simple and predictable: four other students will be
+  // opening PRs against this repo, so we avoid opt-in caching features
+  // that produce confusing build errors for contributors.
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "**" }],
+  },
   turbopack: {
     rules: {
       "*.css": {

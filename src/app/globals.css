@@ -1,26 +1,153 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------
+   Net Zero: AAMU Solar Electric Initiative — design tokens
+   Primary brand colours follow the AAMU Brand Guide:
+   AAMU Maroon #61162D, White, Rich Black.
+   Two project accents are layered on top: "solar" (amber, the PV /
+   energy side) and "field" (green, the agrivoltaic / soil side).
+   ------------------------------------------------------------------ */
+
+@theme {
+  /* AAMU Maroon ramp — 700 is the official brand value */
+  --color-maroon-50: #fbf3f6;
+  --color-maroon-100: #f6e4ea;
+  --color-maroon-200: #ecc6d3;
+  --color-maroon-300: #d97e9b;
+  --color-maroon-400: #b8456a;
+  --color-maroon-500: #96264a;
+  --color-maroon-600: #7a1d39;
+  --color-maroon-700: #61162d;
+  --color-maroon-800: #4e1124;
+  --color-maroon-900: #3e0d1c;
+  --color-maroon-950: #2a0912;
+
+  /* Solar accent — photovoltaics, energy, generation */
+  --color-solar-100: #fdf2df;
+  --color-solar-200: #fae3bb;
+  --color-solar-300: #f6d195;
+  --color-solar-400: #f2bc6b;
+  --color-solar-500: #e8a33d;
+  --color-solar-600: #b97309;
+  --color-solar-700: #8d5705;
+
+  /* Field accent — agrivoltaics, soil, crops, livestock */
+  --color-field-100: #e6f0e9;
+  --color-field-200: #c7ddcf;
+  --color-field-500: #4a7c59;
+  --color-field-600: #3b6648;
+  --color-field-700: #2f5b3e;
+
+  /* Warm neutral ramp — pairs with maroon far better than cool grey */
+  --color-ink-50: #f8f6f4;
+  --color-ink-100: #efebe7;
+  --color-ink-200: #ded8d3;
+  --color-ink-300: #c4bcb5;
+  --color-ink-400: #8c8580;
+  --color-ink-500: #6e6763;
+  --color-ink-600: #57514d;
+  --color-ink-700: #403b38;
+  --color-ink-800: #2a2522;
+  --color-ink-900: #1b1816;
+  --color-ink-950: #121212;
+
+  --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, ui-sans-serif,
+    system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono",
+    Menlo, Consolas, monospace;
+
+  --radius-card: 0.75rem;
+
+  --animate-shimmer: shimmer 7s ease-in-out infinite;
+  --animate-rise: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate3d(0, -1.5%, 0);
   }
 }
 
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.75rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-ink-50);
+  color: var(--color-ink-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Respect users who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Visible, on-brand focus ring for keyboard users — required for the
+   accessibility pass in the Weeks 19–22 AAMU integration package. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-solar-500);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background-color: var(--color-maroon-700);
+  color: #fff;
+}
+
+/* The photovoltaic array motif used behind dark hero panels. Drawn in
+   CSS so it costs no image request and scales to any viewport. */
+.pv-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, white 9%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, white 7%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 46px 30px;
+}
+
+.pv-glow {
+  background: radial-gradient(
+    60% 55% at 72% 18%,
+    color-mix(in srgb, var(--color-solar-500) 42%, transparent) 0%,
+    transparent 70%
+  );
 }
