@@ -70,11 +70,11 @@ export default function AboutPage() {
               If you are one of the five students
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-ink-600">
-              Your section lives in{" "}
+              Your section lives in its own file under{" "}
               <code className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[12px] text-maroon-700">
-                src/content/students.ts
+                src/content/students/
               </code>
-              . Edit only your own entry, set{" "}
+              , named for your student number. Edit only that file, set{" "}
               <code className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[12px] text-maroon-700">
                 awaitingStudentCopy
               </code>{" "}
@@ -82,8 +82,8 @@ export default function AboutPage() {
               <code className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[12px] text-maroon-700">
                 false
               </code>{" "}
-              once it is yours, and open a pull request. Keeping to your own object means
-              five people can work on the same file without conflicts.
+              once it is yours, and open a pull request. One file per student is what
+              lets five people work in the same week without merge conflicts.
             </p>
           </div>
 

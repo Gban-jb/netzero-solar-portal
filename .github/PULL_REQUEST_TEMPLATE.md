@@ -4,7 +4,7 @@
 
 ## Checklist
 
-- [ ] I only changed my own section (my student object, or my department entry)
+- [ ] I only changed my own section (my file in `src/content/students/`, or my department entry)
 - [ ] `npm run build` passes locally
 - [ ] `npm run lint` passes locally
 - [ ] Any new image is in `public/gallery/`, under ~500 KB, with a real `alt` description

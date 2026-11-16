@@ -155,9 +155,9 @@ export default async function HomePage() {
               How work reaches this page
             </h3>
             <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-600">
-              Each student edits only their own entry in{" "}
+              Each student edits only their own file in{" "}
               <code className="rounded bg-white px-1.5 py-0.5 font-mono text-[12px] text-maroon-700 ring-1 ring-ink-200">
-                src/content/students.ts
+                src/content/students/
               </code>{" "}
               and opens a pull request against the project repository. A preview
               deployment is built automatically for review, and the live site updates

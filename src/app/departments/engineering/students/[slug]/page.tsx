@@ -57,7 +57,7 @@ export default async function StudentPage({ params }: Params) {
             </>
           ) : (
             <span className="rounded bg-white/10 px-2 py-1 font-mono text-xs text-maroon-200">
-              Student name pending — set `name` in src/content/students.ts
+              {`Student name pending — set \`name\` in src/content/students/${student.slug}.ts`}
             </span>
           )}
         </p>
