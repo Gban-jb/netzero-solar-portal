@@ -29,7 +29,7 @@ the same week without merge conflicts.
 | Student 1 | `src/content/students/student-1.ts` | Sudin Pokharel   | Thermal imaging & hotspot detection           |
 | Student 2 | `src/content/students/student-2.ts` | Gaurab           | Anomaly management & inspection application   |
 | Student 3 | `src/content/students/student-3.ts` | Prashant Banjade | Energy loss & financial impact analysis       |
-| Student 4 | `src/content/students/student-4.ts` | unassigned       | Field hardware, positioning & connectivity    |
+| Student 4 | `src/content/students/student-4.ts` | Armaan           | Field hardware, positioning & connectivity    |
 | Student 5 | `src/content/students/student-5.ts` | Jeeban Bashyal   | Reporting, site monitoring & this portal      |
 
 `.github/CODEOWNERS` records the same thing for GitHub, so a pull request
