@@ -34,10 +34,55 @@ export const projectStats: ProjectStat[] = [
     note: "From the expanded solar farm",
   },
   {
-    value: "5",
-    label: "Departments contributing",
-    note: "Engineering, Animal & Food Science, Architecture, Soil Science, Communications",
+    value: "4\u00a2",
+    label: "Per kilowatt-hour, solar",
+    note: "Against about 19\u00a2 from the 6.5 MW fossil-fuel system",
   },
+];
+
+/**
+ * THE WIDER INITIATIVE
+ * --------------------
+ * Figures published by Alabama A&M University on the Net Zero Solar
+ * Electric Initiative pages. They describe the programme this research
+ * project sits inside — the array, the storage and the transit fleet
+ * the power is for. They are reproduced here as the university states
+ * them, and `site.aamuInitiativeUrl` is the source.
+ *
+ * Nothing measured by this project is listed here. Student findings
+ * stay on the student pages.
+ */
+export const initiativeFacts = [
+  {
+    value: "2017",
+    label: "Transition begins",
+    detail:
+      "The Bulldog Transit System starts phasing out fossil-fuel buses for battery-electric buses and the infrastructure to run them.",
+  },
+  {
+    value: "2019",
+    label: "First electric buses",
+    detail:
+      "Proterra Catalyst 40-foot buses enter service — the first electric buses on the road in Alabama, and the first electric bus fleet at an HBCU in the nation.",
+  },
+  {
+    value: "6",
+    label: "Electric buses running",
+    detail:
+      "Alongside two 25-passenger shuttles, two coach buses, seven 15-passenger vans and four electric police cruisers. Two more buses are on order against a goal of ten.",
+  },
+  {
+    value: "80 t",
+    label: "Emissions cut per bus",
+    detail:
+      "Together with about $35,000 in maintenance and $285,000 in fuel costs saved per bus, as reported by the university.",
+  },
+] as const;
+
+/** How the storage, the array and this research project relate. */
+export const initiativeContext = [
+  "The 1.3-megawatt solar farm is being brought into a new renewable microgrid, supported by a battery energy storage system that holds the excess. That power runs the campus electric buses and police vehicles.",
+  "This research project sits on top of that infrastructure. It does not operate the battery system — that stays with the BESS team — but it monitors the array from the air, records the condition of the storage equipment, and turns what it finds into something the university can act on.",
 ];
 
 /**

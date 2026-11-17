@@ -15,6 +15,33 @@ import type { GalleryItem } from "@/lib/types";
  */
 export const gallery: GalleryItem[] = [
   {
+    id: "bess-site-overview",
+    caption: "Battery storage units in place beside the array",
+    src: "/gallery/bess-site-overview.jpg",
+    alt: "Five white battery storage cabinets standing on concrete pads at the BESS site, with a green pad-mounted transformer in front of them and rows of photovoltaic panels behind the perimeter fence",
+    capturedOn: "",
+    location: "BESS site, east of the solar array",
+    department: "engineering",
+  },
+  {
+    id: "bess-cabinet-interior",
+    caption: "Inside a storage cabinet — battery modules and inverter",
+    src: "/gallery/bess-cabinet-interior.jpg",
+    alt: "An open battery storage cabinet showing five stacked battery modules wired with orange high-voltage connectors above an inverter section, with a smoke detector, heat detector and suppression cylinder mounted on the inside of the door",
+    capturedOn: "",
+    location: "BESS site — cabinet 014",
+    department: "engineering",
+  },
+  {
+    id: "bess-site-signage",
+    caption: "The BESS installation under construction",
+    src: "/gallery/bess-site-signage.jpg",
+    alt: "Wide view of the battery energy storage site showing the installed cabinets, empty concrete pads awaiting further units, and the Alabama A&M University project sign at the site entrance",
+    capturedOn: "",
+    location: "BESS site entrance",
+    department: "engineering",
+  },
+  {
     id: "pv-array-overview",
     caption: "Solar array, full-site overview",
     src: "",
@@ -43,15 +70,6 @@ export const gallery: GalleryItem[] = [
     location: "Solar farm",
     department: "engineering",
     flightId: "",
-  },
-  {
-    id: "bess-enclosure",
-    caption: "Battery energy storage enclosure",
-    src: "",
-    alt: "The battery energy storage installation at the BESS management site",
-    capturedOn: "",
-    location: "BESS management site",
-    department: "engineering",
   },
   {
     id: "agrivoltaic-plot",
