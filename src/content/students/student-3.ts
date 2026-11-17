@@ -15,6 +15,7 @@ export const studentThree: StudentProfile = {
   number: 3,
   name: null,
   task: "Energy & Cost",
+  pipelineStep: 4,
   role: "Energy Loss & Financial Impact Analysis",
   tagline: "What a fault actually costs, in kilowatt-hours and in dollars",
   objective:

@@ -1,219 +1,224 @@
 import Link from "next/link";
 import { getDepartments, getGallery, getNews, getStudents } from "@/lib/content";
-import { projectStats, site } from "@/content/site";
-import { DepartmentCard, GalleryCard, NewsCard, StudentCard } from "@/components/cards";
+import { GalleryCard, NewsCard } from "@/components/cards";
+import { TaskBoard } from "@/components/TaskBoard";
+import { ThermalScale } from "@/components/ThermalScale";
 import { Section } from "@/components/ui";
-import { HeroArray } from "@/components/HeroArray";
+import { projectStats, site } from "@/content/site";
 
 export default async function HomePage() {
-  const [departments, students, news, gallery] = await Promise.all([
-    getDepartments(),
+  const [students, departments, updates, photos] = await Promise.all([
     getStudents(),
+    getDepartments(),
     getNews(3),
     getGallery(),
   ]);
 
-  const deptName = (slug: string) =>
-    slug === "project"
-      ? "Project-wide"
-      : departments.find((d) => d.slug === slug)?.shortName ?? "Project";
-
-  const pct = Math.round((site.currentWeek / site.totalWeeks) * 100);
+  const tasks = students.filter((s) => typeof s.pipelineStep === "number");
+  const portal = students.find((s) => s.slug === "student-5");
+  const alongside = departments.filter((d) => d.slug !== "engineering");
+  const weekPct = Math.round((site.currentWeek / site.totalWeeks) * 100);
 
   return (
     <>
-      {/* ---------------------------------------------------------- Hero */}
-      <section className="relative isolate overflow-hidden bg-maroon-950">
+      {/* ============================================ Hero: the thesis */}
+      <header className="relative overflow-hidden bg-therm-05">
         <div aria-hidden="true" className="pv-grid absolute inset-0" />
         <div aria-hidden="true" className="pv-glow animate-shimmer absolute inset-0" />
-        <HeroArray />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink-50 to-transparent"
-        />
 
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
-          <div className="relative z-10 max-w-3xl animate-rise lg:max-w-2xl">
-            <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-solar-300 ring-1 ring-inset ring-white/15">
-              <span className="h-1.5 w-1.5 rounded-full bg-solar-400" aria-hidden="true" />
-              {site.university}
+        <div className="relative mx-auto max-w-7xl px-5 pb-14 pt-16 sm:px-8 sm:pb-20 sm:pt-24 lg:px-10">
+          <div className="animate-rise">
+            <p className="label text-therm-85">
+              {site.university} · Net Zero Solar Electric Initiative
             </p>
 
-            <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Net Zero:{" "}
-              <span className="text-solar-400">Solar Electric</span> Initiative
+            <h1 className="display display-tight mt-7 max-w-[16ch] text-[2.75rem] text-white sm:text-[4.5rem] lg:text-[6rem]">
+              From hotspot to dollar figure.
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-maroon-100/90">
-              The centralised research portal for AAMU&rsquo;s Solar PV Drone Monitoring and
-              Battery Energy Storage programme. Five departments, five engineering
-              workstreams, one public record of the work.
+            <p className="prose-serif mt-8 max-w-2xl text-therm-95/80">
+              A drone flies the AAMU array with a radiometric thermal camera.
+              Four engineering tasks turn what it sees into a fault, a
+              location, a priority, and a number in dollars. This is where that
+              work is recorded — week by week, in the open.
             </p>
+          </div>
 
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link
-                href="/departments"
-                className="inline-flex items-center gap-2 rounded-lg bg-solar-500 px-5 py-3 text-sm font-bold text-maroon-950 transition-colors hover:bg-solar-400"
-              >
-                Explore departments
-                <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 10h11M11 5.5 15.5 10 11 14.5" />
-                </svg>
-              </Link>
-              <Link
-                href="/departments/engineering"
-                className="inline-flex items-center rounded-lg border border-white/25 bg-white/5 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
-              >
-                Engineering team
-              </Link>
+          {/* The signature: the four tasks laid along a temperature scale. */}
+          <div className="mt-14 sm:mt-16">
+            <ThermalScale tasks={tasks} />
+          </div>
+
+          {/* Where the project is in its 25 weeks. */}
+          <div className="mt-14 flex flex-wrap items-end justify-between gap-6 border-t border-white/10 pt-6">
+            <div>
+              <p className="label text-white/55">Reporting week</p>
+              <p className="display mt-2 text-[2rem] text-white">
+                {site.currentWeek}
+                <span className="text-white/60"> / {site.totalWeeks}</span>
+              </p>
             </div>
-
-            {/* Reporting-week progress — Student 5 updates this weekly. */}
-            <div className="mt-12 max-w-md rounded-xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm">
-              <div className="flex items-baseline justify-between gap-4">
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-solar-300">
-                  Reporting cycle
-                </p>
-                <p className="font-mono text-xs text-maroon-200">
-                  Week {site.currentWeek} of {site.totalWeeks}
-                </p>
-              </div>
-              <div
-                className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/15"
-                role="progressbar"
-                aria-valuenow={site.currentWeek}
-                aria-valuemin={1}
-                aria-valuemax={site.totalWeeks}
-                aria-label={`Reporting week ${site.currentWeek} of ${site.totalWeeks}`}
-              >
+            <div className="w-full max-w-sm">
+              <div className="h-px w-full bg-white/15">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-solar-500 to-solar-400"
-                  style={{ width: `${pct}%` }}
+                  className="therm-ramp h-px"
+                  style={{ width: `${weekPct}%` }}
                 />
               </div>
-              <p className="mt-3 text-xs leading-relaxed text-maroon-200/80">
-                A one-page team report covering all five students is produced and
-                presented every week of both semesters.
+              <p className="label mt-3 text-white/55">
+                Two semesters · {site.totalWeeks} weekly reports
               </p>
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* --------------------------------------------------------- Stats */}
-      <div className="border-b border-ink-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <dl className="grid grid-cols-2 gap-px bg-ink-200 lg:grid-cols-4">
+      {/* ======================================== The four tasks */}
+      <Section
+        id="tasks"
+        eyebrow="The pipeline"
+        title="Four tasks, in the order the data moves"
+        description="Position in the field, heat on a panel, a fault in a queue, a cost in dollars. Each task hands its output to the next one, which is why they are listed by that sequence rather than by number."
+      >
+        <TaskBoard tasks={tasks} />
+
+        {portal && (
+          <Link
+            href={`/departments/engineering/students/${portal.slug}`}
+            className="group mt-10 flex flex-wrap items-baseline justify-between gap-4 border-l-[3px] border-ink-300 pl-6 transition-colors hover:border-therm-55"
+          >
+            <div>
+              <p className="label text-ink-400">Running across all four</p>
+              <h3 className="display mt-2 text-[1.375rem] text-ink-900">
+                {portal.role}
+              </h3>
+            </div>
+            <span className="label text-ink-400 transition-colors group-hover:text-therm-55">
+              Weekly reports, the BESS condition log, this site &rarr;
+            </span>
+          </Link>
+        )}
+      </Section>
+
+      {/* ======================================== The array in numbers */}
+      <div className="bg-therm-05">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+          <p className="label text-therm-85">What the work sits on</p>
+          <dl className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {projectStats.map((stat) => (
-              <div key={stat.label} className="bg-white px-4 py-8 sm:px-6">
-                <dt className="sr-only">{stat.label}</dt>
-                <dd>
-                  <span className="block font-display text-3xl font-extrabold tracking-tight text-maroon-700 sm:text-4xl">
-                    {stat.value}
-                  </span>
-                  <span className="mt-2 block text-sm font-semibold text-ink-800">
-                    {stat.label}
-                  </span>
-                  {stat.note && (
-                    <span className="mt-1 block text-xs leading-relaxed text-ink-500">
-                      {stat.note}
-                    </span>
-                  )}
+              <div key={stat.label} className="border-t border-white/15 pt-5">
+                <dt className="label text-white/60">{stat.label}</dt>
+                <dd className="display mt-3 text-[2.5rem] text-white">
+                  {stat.value}
                 </dd>
+                {stat.note && (
+                  <dd className="prose-serif mt-2 text-[0.9375rem] text-white/60">
+                    {stat.note}
+                  </dd>
+                )}
               </div>
             ))}
           </dl>
         </div>
       </div>
 
-      {/* --------------------------------------------------- Departments */}
-      <Section
-        title="Departments"
-        description="Five groups contribute to the initiative, each writing its own section. Engineering carries the drone monitoring and battery storage workstreams; the other four cover the agricultural, environmental, architectural and public-facing sides of the same site."
-      >
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {departments.map((dept) => (
-            <DepartmentCard key={dept.slug} dept={dept} />
-          ))}
-        </div>
-      </Section>
-
-      {/* ----------------------------------------------- Engineering team */}
-      <div className="border-y border-ink-200 bg-white">
+      {/* ======================================== Alongside this work */}
+      <div className="border-b border-field-200 bg-field-100/40">
         <Section
-          title="Engineering team"
-          description="Five student workstreams running in parallel, from raw thermal imagery through to the weekly report. Each student owns their own subsection and publishes to it directly."
+          eyebrow="Alongside the engineering work"
+          title="Four departments studying the same field"
+          description="The array is not only an engineering site. Crops and livestock grow beneath it, its soil is measured, its enclosure is designed, and what gets published about it is agreed with Communications. Each department writes its own section."
         >
-          <div className="grid gap-5 lg:grid-cols-2">
-            {students.map((student) => (
-              <StudentCard key={student.slug} student={student} />
+          <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            {alongside.map((dept) => (
+              <DepartmentSummary key={dept.slug} name={dept.name} tagline={dept.tagline} />
             ))}
           </div>
 
-          <div className="mt-8 rounded-xl border border-ink-200 bg-ink-50 p-6">
-            <h3 className="font-display text-base font-extrabold text-ink-900">
-              How work reaches this page
-            </h3>
-            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-600">
-              Each student edits only their own file in{" "}
-              <code className="rounded bg-white px-1.5 py-0.5 font-mono text-[12px] text-maroon-700 ring-1 ring-ink-200">
-                src/content/students/
-              </code>{" "}
-              and opens a pull request against the project repository. A preview
-              deployment is built automatically for review, and the live site updates
-              on merge.
-            </p>
-          </div>
+          <Link
+            href="/departments"
+            className="label group mt-12 inline-flex items-center gap-3 text-field-700"
+          >
+            Read all four sections
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            >
+              &rarr;
+            </span>
+          </Link>
         </Section>
       </div>
 
-      {/* -------------------------------------------------------- Updates */}
+      {/* ======================================== Updates */}
       <Section
+        eyebrow="On the record"
         title="Latest updates"
-        description="Items are published here after the weekly BESS management meeting agrees what goes on the record."
+        description="Published only after the weekly BESS management meeting agrees what goes on the record."
       >
-        <div className="grid gap-5 lg:grid-cols-3">
-          {news.map((item) => (
-            <NewsCard key={item.slug} item={item} departmentName={deptName(item.department)} />
+        <div className="grid gap-x-10 gap-y-12 lg:grid-cols-3">
+          {updates.map((item) => (
+            <NewsCard
+              key={item.slug}
+              item={item}
+              departmentName={
+                item.department === "project"
+                  ? "Project"
+                  : departments.find((d) => d.slug === item.department)?.shortName ??
+                    "Project"
+              }
+            />
           ))}
         </div>
-        <div className="mt-8">
-          <Link
-            href="/news"
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-maroon-700 hover:text-maroon-500"
+
+        <Link
+          href="/news"
+          className="label group mt-12 inline-flex items-center gap-3 text-therm-55"
+        >
+          Every update
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover:translate-x-1"
           >
-            All updates
-            <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4 10h11M11 5.5 15.5 10 11 14.5" />
-            </svg>
-          </Link>
-        </div>
+            &rarr;
+          </span>
+        </Link>
       </Section>
 
-      {/* -------------------------------------------------------- Gallery */}
-      <div className="border-t border-ink-200 bg-white">
-        <Section
-          title="From the site"
-          description="Photographs from drone flights, site visits and the BESS management site. Every image carries its location and capture date, or says plainly that they are still pending."
-        >
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {gallery.slice(0, 4).map((item) => (
-              <GalleryCard key={item.id} item={item} />
-            ))}
-          </div>
-          <div className="mt-8">
+      {/* ======================================== From the array */}
+      {photos.length > 0 && (
+        <div className="border-t border-ink-200">
+          <Section eyebrow="From the flights" title="The array, photographed">
+            <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+              {photos.slice(0, 4).map((p) => (
+                <GalleryCard key={p.id} item={p} />
+              ))}
+            </div>
+
             <Link
               href="/gallery"
-              className="inline-flex items-center gap-1.5 text-sm font-bold text-maroon-700 hover:text-maroon-500"
+              className="label group mt-12 inline-flex items-center gap-3 text-therm-55"
             >
-              Open the full gallery
-              <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 10h11M11 5.5 15.5 10 11 14.5" />
-              </svg>
+              Full gallery
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                &rarr;
+              </span>
             </Link>
-          </div>
-        </Section>
-      </div>
+          </Section>
+        </div>
+      )}
     </>
+  );
+}
+
+function DepartmentSummary({ name, tagline }: { name: string; tagline: string }) {
+  return (
+    <div className="border-t-2 border-field-500 pt-5">
+      <h3 className="display text-[1.25rem] leading-tight text-ink-900">{name}</h3>
+      <p className="prose-serif mt-3 text-[0.9375rem] text-ink-600">{tagline}</p>
+    </div>
   );
 }

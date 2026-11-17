@@ -1,127 +1,125 @@
 import Link from "next/link";
 import type { StudentProfile } from "@/lib/types";
-import { accents, cx, statusLabels } from "@/lib/format";
+import {
+  cx,
+  inPipelineOrder,
+  pipelineStages,
+  statusLabels,
+  taskTone,
+} from "@/lib/format";
 
 /**
- * TASK BOARD
- * ----------
- * The grid of engineering tasks at the top of the department page.
- * Each box is one task, named for the work rather than for the person
- * doing it, and links through to that task's full page.
+ * THE FOUR TASKS
+ * --------------
+ * Set as full-width editorial entries rather than a grid of cards:
+ * these are the four pieces of work the whole project consists of,
+ * and they are listed in the order the data moves through them.
  *
- * All motion is CSS: a staggered entrance on load, and transitions on
- * hover and focus. No client JavaScript, so the page stays a static
- * server-rendered document. The reduced-motion block in globals.css
- * switches the animation off for anyone who asks for that.
+ * Each entry carries its position on the radiometric ramp. Motion is
+ * CSS only — the rule across the top draws in on hover and focus, and
+ * the entries rise in sequence on load — so the page stays a static
+ * server-rendered document.
  */
 export function TaskBoard({ tasks }: { tasks: StudentProfile[] }) {
+  const ordered = inPipelineOrder(tasks);
+
   return (
-    <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {tasks.map((task, i) => {
-        const a = accents[task.accent];
-        const started = task.fallMilestones.some(
-          (m) => m.status !== "not-started",
-        );
+    <ol className="border-t border-ink-200">
+      {ordered.map((task, i) => {
+        const tone = taskTone(task.pipelineStep);
+        const status = task.fallMilestones[0]?.status ?? "not-started";
+
         return (
           <li
             key={task.slug}
-            className="animate-rise"
-            style={{ animationDelay: `${i * 110}ms` }}
+            className="animate-rise border-b border-ink-200"
+            style={{ animationDelay: `${i * 90}ms` }}
           >
             <Link
               href={`/departments/engineering/students/${task.slug}`}
-              className={cx(
-                "group relative flex h-full flex-col overflow-hidden rounded-xl bg-white p-6",
-                "ring-1 ring-ink-200 transition-all duration-300 ease-out",
-                "hover:-translate-y-1.5 hover:shadow-xl hover:shadow-ink-900/10 hover:ring-2",
-                "focus-visible:-translate-y-1.5 focus-visible:shadow-xl",
-                a.ring,
-              )}
+              className="group relative block"
             >
-              {/* Accent bar, drawn left to right on hover. */}
+              {/* The ramp colour, drawn across the entry on hover. */}
               <span
                 aria-hidden="true"
                 className={cx(
-                  "absolute inset-x-0 top-0 h-1 origin-left scale-x-0 transition-transform duration-500 ease-out",
+                  "rule-grow absolute inset-x-0 top-0 h-[3px] scale-x-0",
                   "group-hover:scale-x-100 group-focus-visible:scale-x-100",
-                  a.bar,
+                  tone.block,
                 )}
               />
-
-              {/* Soft accent wash that fades up behind the content. */}
+              {/* Faint wash of the same hue. */}
               <span
                 aria-hidden="true"
                 className={cx(
-                  "absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100",
-                  a.softBg,
+                  "absolute inset-0 opacity-0 transition-opacity duration-500",
+                  "group-hover:opacity-100 group-focus-visible:opacity-100",
+                  tone.soft,
                 )}
               />
 
-              {/* Oversized task number, used as a watermark. */}
-              <span
-                aria-hidden="true"
-                className={cx(
-                  "pointer-events-none absolute -top-4 right-1 font-display text-[5rem] font-extrabold leading-none",
-                  "text-ink-100 transition-all duration-500 ease-out",
-                  "group-hover:-translate-y-1 group-hover:scale-110 group-hover:text-white/70",
-                )}
-              >
-                {task.number}
-              </span>
-
-              <div className="relative flex h-full flex-col">
-                <p
-                  className={cx(
-                    "text-[11px] font-bold uppercase tracking-[0.14em]",
-                    a.text,
-                  )}
-                >
-                  Task {task.number}
-                </p>
-
-                <h3 className="mt-2 font-display text-lg font-extrabold leading-tight tracking-tight text-ink-900">
-                  {task.task}
-                </h3>
-
-                <p className="mt-2 text-[13px] font-semibold leading-snug text-ink-700">
-                  {task.role}
-                </p>
-
-                <p className="mt-3 line-clamp-3 text-[13px] leading-relaxed text-ink-600">
-                  {task.tagline}
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {task.stack.slice(0, 3).map((s) => (
-                    <span
-                      key={s}
-                      className="rounded-full bg-ink-100 px-2 py-0.5 font-mono text-[10px] text-ink-600 ring-1 ring-inset ring-ink-200/60"
-                    >
-                      {s}
-                    </span>
-                  ))}
+              <div className="relative grid gap-x-10 gap-y-4 py-8 sm:py-10 lg:grid-cols-[13rem_minmax(0,1fr)_auto]">
+                {/* Left: where this sits in the pipeline. */}
+                <div className="flex items-start gap-3 lg:block">
+                  <span
+                    aria-hidden="true"
+                    className={cx("block h-10 w-1.5 shrink-0", tone.block)}
+                  />
+                  <div className="lg:mt-3">
+                    <p className={cx("label", tone.label)}>
+                      {pipelineStages[i]}
+                    </p>
+                    <p className="label mt-1 text-ink-400">
+                      Task {task.number}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Footer pinned to the bottom so every box lines up. */}
-                <div className="mt-auto flex items-center justify-between pt-5">
-                  <span className="flex items-center gap-1.5 text-[11px] font-semibold text-ink-500">
+                {/* Middle: the task itself. */}
+                <div className="min-w-0">
+                  <h3
+                    className={cx(
+                      "display text-[1.75rem] leading-[1.05] text-ink-900 sm:text-[2.25rem]",
+                      "transition-transform duration-500 group-hover:translate-x-1",
+                    )}
+                  >
+                    {task.role}
+                  </h3>
+                  <p className="prose-serif mt-3 max-w-2xl text-ink-600">
+                    {task.tagline}
+                  </p>
+                  <ul className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                    {task.stack.slice(0, 4).map((s) => (
+                      <li
+                        key={s}
+                        className="font-mono text-[11px] text-ink-500"
+                      >
+                        {s}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Right: status and the way in. */}
+                <div className="flex items-center gap-4 lg:flex-col lg:items-end lg:justify-between lg:py-1">
+                  <span className="flex items-center gap-2">
                     <span
                       aria-hidden="true"
                       className={cx(
                         "h-1.5 w-1.5 rounded-full",
-                        started ? a.dot : "bg-ink-300",
+                        status === "not-started" ? "bg-ink-300" : tone.dot,
                       )}
                     />
-                    {started
-                      ? statusLabels[task.fallMilestones[0].status]
-                      : "Not started"}
+                    <span className="label text-ink-500">
+                      {statusLabels[status]}
+                    </span>
                   </span>
                   <span
                     aria-hidden="true"
                     className={cx(
-                      "text-sm font-bold transition-transform duration-300 ease-out",
-                      "group-hover:translate-x-1 group-focus-visible:translate-x-1",
-                      a.text,
+                      "font-display text-2xl font-bold transition-transform duration-500",
+                      "group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5",
+                      tone.label,
                     )}
                   >
                     &rarr;

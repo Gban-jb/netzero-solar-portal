@@ -7,7 +7,7 @@ export default function NotFound() {
       <div aria-hidden="true" className="pv-glow absolute inset-0" />
       <div className="relative mx-auto flex max-w-3xl flex-col items-start px-4 py-28 sm:px-6 lg:px-8">
         <p className="font-mono text-sm text-solar-400">404</p>
-        <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+        <h1 className="mt-4 display display-tight text-[3rem] text-white sm:text-[4rem]">
           That page isn&rsquo;t here
         </h1>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-maroon-100/90">

@@ -8,71 +8,46 @@ import { cx } from "@/lib/format";
 type NavChild = { label: string; href: string; hint?: string };
 type NavItem = { label: string; href: string; children?: NavChild[] };
 
+/**
+ * The project is an engineering project, so the four tasks are the
+ * primary navigation. Everything else — the departments working
+ * alongside, the updates feed, the photographs — sits after them.
+ */
 const nav: NavItem[] = [
   {
-    label: "Departments",
-    href: "/departments",
-    children: [
-      {
-        label: "Engineering & BESS",
-        href: "/departments/engineering",
-        hint: "Five student workstreams",
-      },
-      {
-        label: "Animal & Food Science",
-        href: "/departments/animal-food-science",
-        hint: "Agrivoltaic crop and livestock study",
-      },
-      {
-        label: "Architecture",
-        href: "/departments/architecture",
-        hint: "Site design and campus integration",
-      },
-      {
-        label: "Natural Resources & Soil Science",
-        href: "/departments/natural-resources-soil-science",
-        hint: "Soil, moisture, runoff and erosion",
-      },
-      {
-        label: "Communications",
-        href: "/departments/communications",
-        hint: "Outreach and publication approval",
-      },
-    ],
-  },
-  {
-    label: "Engineering Team",
+    label: "Tasks",
     href: "/departments/engineering",
     children: [
       {
-        label: "Student 1 — Thermal Imaging",
-        href: "/departments/engineering/students/student-1",
-        hint: "Hotspot detection & SCADA sync",
-      },
-      {
-        label: "Student 2 — Inspection App",
-        href: "/departments/engineering/students/student-2",
-        hint: "Anomaly triage and tracking",
-      },
-      {
-        label: "Student 3 — Energy Loss",
-        href: "/departments/engineering/students/student-3",
-        hint: "kWh and financial impact",
-      },
-      {
-        label: "Student 4 — Field Hardware",
+        label: "Field Hardware, Positioning & Connectivity",
         href: "/departments/engineering/students/student-4",
-        hint: "GPS, RTK, Wi-Fi and RF",
+        hint: "01 Capture · GPS, RTK, Wi-Fi and RF",
       },
       {
-        label: "Student 5 — Reporting & Portal",
+        label: "Thermal Imaging & Hotspot Detection",
+        href: "/departments/engineering/students/student-1",
+        hint: "02 Detect · radiometric imagery, SCADA sync",
+      },
+      {
+        label: "Anomaly Management & Inspection Application",
+        href: "/departments/engineering/students/student-2",
+        hint: "03 Triage · the inspection queue",
+      },
+      {
+        label: "Energy Loss & Financial Impact Analysis",
+        href: "/departments/engineering/students/student-3",
+        hint: "04 Price · kWh lost and what it costs",
+      },
+      {
+        label: "Project Reporting & This Portal",
         href: "/departments/engineering/students/student-5",
-        hint: "Weekly reports, BESS log, this site",
+        hint: "Across all four · weekly reports, BESS log",
       },
     ],
   },
   { label: "Updates", href: "/news" },
   { label: "Gallery", href: "/gallery" },
+  { label: "Alongside", href: "/departments" },
   { label: "About", href: "/about" },
 ];
 
@@ -117,31 +92,28 @@ export function SiteHeader() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-maroon-900/40 bg-maroon-950/95 backdrop-blur supports-[backdrop-filter]:bg-maroon-950/85">
+    <header className="sticky top-0 z-50 bg-therm-05/95 backdrop-blur supports-[backdrop-filter]:bg-therm-05/85">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-maroon-800"
+        className="label sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:text-therm-25"
       >
         Skip to content
       </a>
 
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center gap-4 px-5 py-4 sm:px-8 lg:px-10">
         <Link href="/" className="group flex shrink-0 items-center gap-3">
-          <SunMark />
+          <ScaleMark />
           <span className="leading-tight">
             <span className="block font-display text-[15px] font-extrabold tracking-tight text-white">
               Net Zero Solar
             </span>
-            <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-maroon-200/80">
+            <span className="label block text-[9px] text-white/55">
               Alabama A&amp;M University
             </span>
           </span>
         </Link>
 
-        <nav
-          aria-label="Primary"
-          className="ml-auto hidden items-center gap-1 lg:flex"
-        >
+        <nav aria-label="Primary" className="ml-auto hidden items-center gap-1 lg:flex">
           {nav.map((item) =>
             item.children ? (
               <div
@@ -158,10 +130,10 @@ export function SiteHeader() {
                     setOpenMenu(openMenu === item.label ? null : item.label)
                   }
                   className={cx(
-                    "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    "label flex items-center gap-2 px-3 py-2 transition-colors",
                     isActive(item.href)
-                      ? "bg-white/10 text-white"
-                      : "text-maroon-100 hover:bg-white/5 hover:text-white",
+                      ? "text-therm-85"
+                      : "text-white/70 hover:text-white",
                   )}
                 >
                   {item.label}
@@ -170,25 +142,26 @@ export function SiteHeader() {
 
                 {openMenu === item.label && (
                   <div
-                    className="absolute right-0 top-full w-80 pt-2"
+                    className="absolute right-0 top-full w-[26rem] pt-2"
                     onMouseEnter={() => openNow(item.label)}
                     onMouseLeave={closeSoon}
                   >
-                    <div className="overflow-hidden rounded-xl border border-ink-200 bg-white shadow-xl shadow-maroon-950/20">
-                      {item.children.map((child) => (
+                    <div className="border-t-2 border-therm-70 bg-white shadow-2xl shadow-therm-05/30">
+                      {item.children.map((child, i) => (
                         <Link
                           key={child.href}
                           href={child.href}
-                          className="block border-b border-ink-100 px-4 py-3 last:border-0 hover:bg-maroon-50"
+                          className="group block border-b border-ink-100 px-5 py-4 last:border-0 hover:bg-ink-50"
                         >
-                          <span className="block text-sm font-semibold text-ink-900">
+                          <span className="block font-display text-[14px] font-bold leading-snug tracking-tight text-ink-900">
                             {child.label}
                           </span>
                           {child.hint && (
-                            <span className="mt-0.5 block text-xs text-ink-500">
+                            <span className="label mt-1.5 block text-ink-400">
                               {child.hint}
                             </span>
                           )}
+                          <span className="sr-only">{i + 1}</span>
                         </Link>
                       ))}
                     </div>
@@ -200,10 +173,10 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cx(
-                  "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  "label px-3 py-2 transition-colors",
                   isActive(item.href)
-                    ? "bg-white/10 text-white"
-                    : "text-maroon-100 hover:bg-white/5 hover:text-white",
+                    ? "text-therm-85"
+                    : "text-white/70 hover:text-white",
                 )}
               >
                 {item.label}
@@ -217,7 +190,7 @@ export function SiteHeader() {
           onClick={() => setMobileOpen((v) => !v)}
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
-          className="ml-auto inline-flex items-center gap-2 rounded-md border border-white/20 px-3 py-2 text-sm font-medium text-white lg:hidden"
+          className="label ml-auto inline-flex items-center gap-2 border border-white/20 px-3 py-2 text-white lg:hidden"
         >
           <span className="sr-only">
             {mobileOpen ? "Close main menu" : "Open main menu"}
@@ -227,27 +200,30 @@ export function SiteHeader() {
         </button>
       </div>
 
+      {/* The scale, as a hairline under the masthead. */}
+      <div aria-hidden="true" className="therm-ramp h-px w-full opacity-70" />
+
       {mobileOpen && (
         <nav
           id="mobile-nav"
           aria-label="Primary (mobile)"
-          className="border-t border-white/10 bg-maroon-950 lg:hidden"
+          className="bg-therm-05 lg:hidden"
         >
-          <ul className="mx-auto max-w-7xl divide-y divide-white/10 px-4 pb-4 sm:px-6">
+          <ul className="mx-auto max-w-7xl divide-y divide-white/10 px-5 pb-5 sm:px-8">
             {nav.map((item) => (
               <li key={item.label} className="py-1">
                 {item.children ? (
                   <details className="group">
-                    <summary className="flex cursor-pointer list-none items-center justify-between py-2.5 text-sm font-semibold text-white">
+                    <summary className="label flex cursor-pointer list-none items-center justify-between py-3 text-white">
                       {item.label}
                       <Chevron open={false} className="group-open:rotate-180" />
                     </summary>
-                    <ul className="pb-2 pl-3">
+                    <ul className="pb-3 pl-2">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
                             href={child.href}
-                            className="block py-2 text-sm text-maroon-100 hover:text-white"
+                            className="block py-2.5 font-display text-[13px] font-bold leading-snug tracking-tight text-white/70 hover:text-white"
                           >
                             {child.label}
                           </Link>
@@ -256,10 +232,7 @@ export function SiteHeader() {
                     </ul>
                   </details>
                 ) : (
-                  <Link
-                    href={item.href}
-                    className="block py-2.5 text-sm font-semibold text-white"
-                  >
+                  <Link href={item.href} className="label block py-3 text-white">
                     {item.label}
                   </Link>
                 )}
@@ -272,28 +245,16 @@ export function SiteHeader() {
   );
 }
 
-function SunMark() {
+/**
+ * The mark is the temperature scale itself, compressed to a square —
+ * the same device the site is built around.
+ */
+function ScaleMark() {
   return (
     <span
       aria-hidden="true"
-      className="relative grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-solar-400 to-solar-600 ring-1 ring-solar-200/40"
-    >
-      <svg viewBox="0 0 24 24" className="h-5 w-5 text-maroon-950" fill="none">
-        <circle cx="12" cy="12" r="4" fill="currentColor" />
-        {Array.from({ length: 8 }).map((_, i) => (
-          <rect
-            key={i}
-            x="11.3"
-            y="1.6"
-            width="1.4"
-            height="3.4"
-            rx="0.7"
-            fill="currentColor"
-            transform={`rotate(${i * 45} 12 12)`}
-          />
-        ))}
-      </svg>
-    </span>
+      className="therm-steps block h-9 w-9 shrink-0 ring-1 ring-white/15"
+    />
   );
 }
 
@@ -302,14 +263,10 @@ function Chevron({ open, className }: { open: boolean; className?: string }) {
     <svg
       aria-hidden="true"
       viewBox="0 0 20 20"
-      className={cx(
-        "h-3.5 w-3.5 transition-transform",
-        open && "rotate-180",
-        className,
-      )}
-      fill="currentColor"
+      className={cx("h-3 w-3 transition-transform", open && "rotate-180", className)}
+      fill="none"
     >
-      <path d="M5.5 7.5 10 12l4.5-4.5" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5.5 7.5 10 12l4.5-4.5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

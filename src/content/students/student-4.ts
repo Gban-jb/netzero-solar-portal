@@ -15,6 +15,7 @@ export const studentFour: StudentProfile = {
   number: 4,
   name: null,
   task: "RF & Positioning",
+  pipelineStep: 1,
   role: "Field Hardware, Positioning & Connectivity",
   tagline: "GPS, RTK, Wi-Fi and RF — putting findings on the map",
   objective:

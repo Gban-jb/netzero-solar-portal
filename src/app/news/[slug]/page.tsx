@@ -65,9 +65,9 @@ export default async function NewsItemPage({ params }: Params) {
             </ul>
           )}
 
-          <dl className="mt-10 grid gap-4 rounded-xl border border-ink-200 bg-white p-6 sm:grid-cols-2">
+          <dl className="mt-10 grid gap-4 border-t border-ink-200 pt-6 sm:grid-cols-2">
             <div>
-              <dt className="text-xs font-bold uppercase tracking-[0.14em] text-ink-500">
+              <dt className="label text-ink-400">
                 Published
               </dt>
               <dd className="mt-1 text-sm text-ink-800">
@@ -75,7 +75,7 @@ export default async function NewsItemPage({ params }: Params) {
               </dd>
             </div>
             <div>
-              <dt className="text-xs font-bold uppercase tracking-[0.14em] text-ink-500">
+              <dt className="label text-ink-400">
                 Source
               </dt>
               <dd className="mt-1 text-sm text-ink-800">
@@ -90,7 +90,7 @@ export default async function NewsItemPage({ params }: Params) {
             </div>
             {item.approvedBy && (
               <div className="sm:col-span-2">
-                <dt className="text-xs font-bold uppercase tracking-[0.14em] text-ink-500">
+                <dt className="label text-ink-400">
                   Publication agreed with
                 </dt>
                 <dd className="mt-1 text-sm text-ink-800">{item.approvedBy}</dd>

@@ -15,6 +15,7 @@ export const studentTwo: StudentProfile = {
   number: 2,
   name: null,
   task: "Inspection App",
+  pipelineStep: 3,
   role: "Anomaly Management & Inspection Application",
   tagline: "Turning detections into a triaged, trackable inspection list",
   objective:

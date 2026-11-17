@@ -97,3 +97,90 @@ export function formatDate(iso: string): string {
 export function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
 }
+
+/* ==================================================================
+   THE RADIOMETRIC RAMP
+   ------------------------------------------------------------------
+   Each of the four engineering tasks takes a position on the thermal
+   scale according to where it sits in the data pipeline: cold at raw
+   capture, hot at financial impact. The bright ramp colours are used
+   for blocks, bars and swatches; `label` is the darkened member of
+   the same hue, used wherever the colour has to carry small text on
+   white and still pass a contrast check.
+
+   Tailwind needs complete class strings at build time, so these are
+   written out in full rather than composed.
+   ================================================================== */
+
+export interface TaskTone {
+  /** Solid block of the ramp colour. */
+  block: string;
+  /** Faint wash of the same hue, for hover and section tints. */
+  soft: string;
+  /** Readable text colour on white. */
+  label: string;
+  /** Hover ring. */
+  ring: string;
+  /** Small status dot. */
+  dot: string;
+  /** Text colour that sits on top of `block`. */
+  onBlock: string;
+}
+
+const tones: TaskTone[] = [
+  {
+    block: "bg-therm-25",
+    soft: "bg-therm-25/[0.06]",
+    label: "text-therm-25",
+    ring: "group-hover:ring-therm-25",
+    dot: "bg-therm-25",
+    onBlock: "text-white",
+  },
+  {
+    block: "bg-therm-40",
+    soft: "bg-therm-40/[0.07]",
+    label: "text-therm-40",
+    ring: "group-hover:ring-therm-40",
+    dot: "bg-therm-40",
+    onBlock: "text-white",
+  },
+  {
+    block: "bg-therm-70",
+    soft: "bg-therm-70/[0.08]",
+    label: "text-therm-55",
+    ring: "group-hover:ring-therm-70",
+    dot: "bg-therm-70",
+    onBlock: "text-therm-05",
+  },
+  {
+    block: "bg-therm-85",
+    soft: "bg-therm-85/[0.12]",
+    label: "text-solar-700",
+    ring: "group-hover:ring-therm-85",
+    dot: "bg-therm-85",
+    onBlock: "text-therm-05",
+  },
+];
+
+/** The tone for a task, by its pipeline position (1\u20134). */
+export function taskTone(pipelineStep?: number): TaskTone {
+  const i = Math.min(Math.max((pipelineStep ?? 1) - 1, 0), tones.length - 1);
+  return tones[i];
+}
+
+/** What each stage of the pipeline does, in two words. */
+export const pipelineStages = [
+  "Capture",
+  "Detect",
+  "Triage",
+  "Price",
+] as const;
+
+/** Tasks in pipeline order rather than by label number. */
+export function inPipelineOrder<T extends { pipelineStep?: number }>(
+  items: T[],
+): T[] {
+  return items
+    .filter((t) => typeof t.pipelineStep === "number")
+    .sort((a, b) => (a.pipelineStep ?? 0) - (b.pipelineStep ?? 0));
+}
