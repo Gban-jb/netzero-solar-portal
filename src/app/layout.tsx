@@ -14,7 +14,7 @@ import "./globals.css";
  * readable before the webfonts arrive.
  */
 const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap";
+  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=JetBrains+Mono:wght@400;500;700&display=swap";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

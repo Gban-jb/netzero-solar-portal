@@ -39,7 +39,7 @@ automatically, and the live site updates when it is merged.
 
 | File | What it holds |
 | --- | --- |
-| `src/content/students.ts` | The five engineering student workstreams |
+| `src/content/students/student-1.ts` … `student-5.ts` | The five engineering student workstreams, one file each |
 | `src/content/departments.ts` | The five department sections |
 | `src/content/news.ts` | The updates feed |
 | `src/content/gallery.ts` | The photo gallery |
@@ -52,27 +52,78 @@ squiggle, read the type — it will tell you exactly which field is wrong.
 
 ## If you are one of the five students
 
-Your section lives in **`src/content/students.ts`**. Find the object whose
-`slug` matches your number and change only that object.
+Your section is **your own file**: `src/content/students/student-N.ts`, where
+`N` is your student number. Change only that file.
+
+| Section | File | Owner |
+| --- | --- | --- |
+| Student 1 | `src/content/students/student-1.ts` | Sudin Pokharel |
+| Student 2 | `src/content/students/student-2.ts` | Gaurab |
+| Student 3 | `src/content/students/student-3.ts` | Prashant Banjade |
+| Student 4 | `src/content/students/student-4.ts` | Armaan |
+| Student 5 | `src/content/students/student-5.ts` | Jeeban Bashyal |
 
 1. Set `name` to your name — it is `null` until you do, and the page shows a
    "name pending" marker.
-2. Rewrite `objective`, `inputs`, `outputs` and `stack` in your own words.
+2. Rewrite `task` (the short name on your box), `role`, `objective`, `inputs`,
+   `outputs` and `stack` in your own words.
 3. Update the `status` on each milestone as you go. Allowed values:
    `"not-started"`, `"in-progress"`, `"under-review"`, `"complete"`.
 4. Add your repository and demo links in `links`. Remove `pending: true` once
-   a link actually works.
+   a link actually works. **Your program itself lives in your own repository,
+   not in this one** — see "Where the student code lives" below.
 5. Set `awaitingStudentCopy: false` to remove the orange "Draft overview"
    banner from your page.
 6. Run `npm run build` to check it compiles, then open a pull request.
 
-**Stay inside your own object.** Five people editing one file only works if
-nobody touches anybody else's entry — that is what keeps pull requests merging
-without conflicts.
+**Stay inside your own file.** One file per student is what lets five people
+push in the same week without merge conflicts. `src/content/students/index.ts`
+only assembles the list and is the project manager's to change.
 
 The overviews currently in place for Students 1–4 were written by the project
 manager from the agreed project scope so the structure exists. They are meant
 to be replaced, not extended.
+
+## Where the student code lives
+
+**This repository is the portal, not the programs.** It is a Next.js site on
+Vercel; a push to `main` deploys production. Four students working in Python,
+OpenCV, C/C++, serial I/O, pandas and a React/Node application cannot share
+that build without breaking the live site for everybody.
+
+So each student keeps their program in **their own repository, in their own
+stack, with their own README and their own CI**:
+
+| Section | Program repository | Stack |
+| --- | --- | --- |
+| Student 1 | `netzero-thermal-detection` | Python, OpenCV, NumPy, pandas |
+| Student 2 | `netzero-inspection-app` | TypeScript, React, Node, SQLite/Postgres |
+| Student 3 | `netzero-energy-loss` | Python, pandas, SQL, charting |
+| Student 4 | `netzero-field-hardware` | Python, C/C++, NMEA/RTCM, GIS |
+
+The portal links to them. Each student puts their repository and demo URL in
+the `links` array in their own `src/content/students/student-N.ts` and drops
+`pending: true` once the link works. That is the only connection the portal
+needs: no student program is ever imported into this site.
+
+### The one thing that must be shared
+
+The stacks differ; the **data passing between them does not**. Student 1's
+detections feed Student 2's application, which feeds Student 3's loss
+calculation, and Student 4 supplies the positions. That shared field set —
+asset / module / row / inverter ID, timestamp, GPS, anomaly type, thermal
+delta, severity, image reference, data-quality indicators — is the real
+coupling in this project, and it is a Weeks 1–2 milestone for Students 1, 2
+and 3 for that reason.
+
+It is agreed once, written down once, and lives in one place as a schema plus
+a few sample files. Python reads it with `json`, TypeScript reads it with
+`JSON.parse` — a schema is language-neutral, which is exactly why the contract
+is the format and not a shared library. A change to it is a conversation at
+the weekly meeting, not a quiet commit.
+
+Work against the sample files from week one. Nobody waits for anybody else's
+prototype to start building.
 
 ## If you are a department
 
@@ -119,6 +170,7 @@ src/
 │   └── about/                  Weekly cycle, scope and limits, how to contribute
 ├── components/                 Header, footer, cards, shared UI
 ├── content/                    ← all editable content lives here
+│   └── students/               One file per student, plus index.ts
 └── lib/
     ├── types.ts                Content types
     ├── content.ts              Data access layer (the only DB-aware module)

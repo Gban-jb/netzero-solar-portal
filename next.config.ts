@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -8,6 +9,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
   turbopack: {
+    // Pin the workspace root. Without this, Turbopack walks up and
+    // finds stray lock files above the repository and warns about
+    // them on every build — confusing for contributors.
+    root: path.resolve(process.cwd()),
     rules: {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],

@@ -1,0 +1,29 @@
+# Who owns which part of the portal
+# ---------------------------------
+# A code owner is automatically requested to review any pull request
+# that touches their files. The rule is simple: edit your own file,
+# review anything that changes it.
+#
+# Last matching line wins, so the specific rules are at the bottom.
+
+# Everything defaults to the project manager (Student 5).
+*                                   @Gban-jb
+
+# Engineering student workstreams — one file per student.
+/src/content/students/student-1.ts  @sudinpokharel
+/src/content/students/student-2.ts  @gauravdev0011-code
+/src/content/students/student-3.ts  @banjadecodes
+/src/content/students/student-4.ts  @Armaaaaannnn
+/src/content/students/student-5.ts  @Gban-jb
+
+# Shared ground. Changes here affect everyone, so they come to the
+# project manager: the student list, the types, the data layer, the
+# approved news feed, site chrome and build configuration.
+/src/content/students/index.ts      @Gban-jb
+/src/lib/                           @Gban-jb
+/src/content/departments.ts         @Gban-jb
+/src/content/news.ts                @Gban-jb
+/src/content/site.ts                @Gban-jb
+/src/components/                    @Gban-jb
+/src/app/                           @Gban-jb
+/.github/                           @Gban-jb

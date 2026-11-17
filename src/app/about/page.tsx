@@ -27,18 +27,18 @@ export default function AboutPage() {
           {weeklyCycle.map((s) => (
             <li
               key={s.step}
-              className="relative rounded-xl bg-white p-6 ring-1 ring-ink-200"
+              className="relative border-t-2 border-ink-900 pt-6"
             >
               <span
                 aria-hidden="true"
-                className="font-display text-3xl font-extrabold tracking-tight text-ink-200"
+                className="display text-[2.5rem] text-ink-200"
               >
                 {String(s.step).padStart(2, "0")}
               </span>
-              <h3 className="mt-1 font-display text-base font-extrabold tracking-tight text-ink-900">
+              <h3 className="mt-1 display text-[1.25rem] text-ink-900">
                 {s.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-600">{s.detail}</p>
+              <p className="mt-2 prose-serif text-[0.9375rem] text-ink-600">{s.detail}</p>
             </li>
           ))}
         </ol>
@@ -56,7 +56,7 @@ export default function AboutPage() {
                   aria-hidden="true"
                   className="mt-1 h-2 w-2 shrink-0 rounded-full bg-maroon-600"
                 />
-                <p className="text-sm leading-relaxed text-ink-700">{note}</p>
+                <p className="prose-serif text-[0.9375rem] text-ink-700">{note}</p>
               </li>
             ))}
           </ul>
@@ -65,16 +65,16 @@ export default function AboutPage() {
 
       <Section title="Contributing to this site">
         <div className="grid max-w-5xl gap-6 md:grid-cols-2">
-          <div className="rounded-xl bg-white p-6 ring-1 ring-ink-200">
-            <h3 className="font-display text-base font-extrabold tracking-tight text-ink-900">
+          <div className="border-t-2 border-ink-900 pt-6">
+            <h3 className="display text-[1.25rem] text-ink-900">
               If you are one of the five students
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink-600">
-              Your section lives in{" "}
+            <p className="mt-3 prose-serif text-[0.9375rem] text-ink-600">
+              Your section lives in its own file under{" "}
               <code className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[12px] text-maroon-700">
-                src/content/students.ts
+                src/content/students/
               </code>
-              . Edit only your own entry, set{" "}
+              , named for your student number. Edit only that file, set{" "}
               <code className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[12px] text-maroon-700">
                 awaitingStudentCopy
               </code>{" "}
@@ -82,16 +82,16 @@ export default function AboutPage() {
               <code className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[12px] text-maroon-700">
                 false
               </code>{" "}
-              once it is yours, and open a pull request. Keeping to your own object means
-              five people can work on the same file without conflicts.
+              once it is yours, and open a pull request. One file per student is what
+              lets five people work in the same week without merge conflicts.
             </p>
           </div>
 
-          <div className="rounded-xl bg-white p-6 ring-1 ring-ink-200">
-            <h3 className="font-display text-base font-extrabold tracking-tight text-ink-900">
+          <div className="border-t-2 border-ink-900 pt-6">
+            <h3 className="display text-[1.25rem] text-ink-900">
               If you are a department
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink-600">
+            <p className="mt-3 prose-serif text-[0.9375rem] text-ink-600">
               Your section lives in{" "}
               <code className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[12px] text-maroon-700">
                 src/content/departments.ts

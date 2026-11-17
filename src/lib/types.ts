@@ -67,7 +67,22 @@ export interface StudentProfile {
   number: number;
   /** Real name once confirmed; null renders the placeholder treatment. */
   name: string | null;
+  /** Short task name — two or three words. This is what the work is
+   *  called across the site: task boxes, nav chips, breadcrumbs. The
+   *  section is named for the task, never for the person doing it. */
+  task: string;
+  /** The full task title, used as the page heading. */
   role: string;
+  /**
+   * Where this task sits in the data pipeline, 1 to 4 — not the same
+   * as `number`, which is just its label. Field hardware captures
+   * position (1), thermal imaging detects the fault (2), the
+   * inspection application triages it (3), the energy-loss
+   * calculation prices it (4). The site orders the tasks by this and
+   * colours them along the radiometric ramp from cold capture to hot
+   * consequence. Omitted for work that is not part of the pipeline.
+   */
+  pipelineStep?: number;
   /** Short role line used on cards. */
   tagline: string;
   objective: string;

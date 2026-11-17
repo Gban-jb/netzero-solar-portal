@@ -1,15 +1,22 @@
 @import "tailwindcss";
 
-/* ------------------------------------------------------------------
-   Net Zero: AAMU Solar Electric Initiative — design tokens
-   Primary brand colours follow the AAMU Brand Guide:
-   AAMU Maroon #61162D, White, Rich Black.
-   Two project accents are layered on top: "solar" (amber, the PV /
-   energy side) and "field" (green, the agrivoltaic / soil side).
-   ------------------------------------------------------------------ */
+/* ==================================================================
+   NET ZERO SOLAR — DESIGN SYSTEM
+   ------------------------------------------------------------------
+   The subject of this site is a thermal camera flying over a solar
+   array. Everything below is derived from that: the accent system is
+   a radiometric temperature ramp, running from the cold end (raw
+   capture in the field) to the hot end (money lost to a fault).
+   AAMU Maroon #61162D is the brand anchor and sits inside the ramp
+   rather than beside it.
+
+   Canvas is white with a great deal of air, type is large and set in
+   three deliberate voices, and the one piece of decoration on the
+   page is the temperature scale itself.
+   ================================================================== */
 
 @theme {
-  /* AAMU Maroon ramp — 700 is the official brand value */
+  /* ---- AAMU Maroon ramp — 700 is the official brand value ---- */
   --color-maroon-50: #fbf3f6;
   --color-maroon-100: #f6e4ea;
   --color-maroon-200: #ecc6d3;
@@ -22,7 +29,21 @@
   --color-maroon-900: #3e0d1c;
   --color-maroon-950: #2a0912;
 
-  /* Solar accent — photovoltaics, energy, generation */
+  /* ---- The radiometric ramp. Cold capture to hot consequence. ----
+     therm-10 is the cold field, therm-50 the white-hot core. The
+     brand maroon is step 25, so the scale reads as an extension of
+     the university's colour rather than a second palette. */
+  --color-therm-05: #120810;
+  --color-therm-10: #2a0912;
+  --color-therm-25: #61162d;
+  --color-therm-40: #a52a3a;
+  --color-therm-55: #d1452c;
+  --color-therm-70: #e8731e;
+  --color-therm-85: #f0a830;
+  --color-therm-95: #ffd98a;
+  --color-therm-99: #fff1d4;
+
+  /* ---- Solar accent (kept: PV, generation) ---- */
   --color-solar-100: #fdf2df;
   --color-solar-200: #fae3bb;
   --color-solar-300: #f6d195;
@@ -31,59 +52,77 @@
   --color-solar-600: #b97309;
   --color-solar-700: #8d5705;
 
-  /* Field accent — agrivoltaics, soil, crops, livestock */
+  /* ---- Field accent — the agrivoltaic side. Used only for the work
+     running alongside engineering, so the two never blur. ---- */
   --color-field-100: #e6f0e9;
   --color-field-200: #c7ddcf;
+  --color-field-300: #9dc0a9;
   --color-field-500: #4a7c59;
   --color-field-600: #3b6648;
   --color-field-700: #2f5b3e;
+  --color-field-900: #1d3a28;
 
-  /* Warm neutral ramp — pairs with maroon far better than cool grey */
-  --color-ink-50: #f8f6f4;
-  --color-ink-100: #efebe7;
-  --color-ink-200: #ded8d3;
+  /* ---- Warm neutral ramp ---- */
+  --color-ink-50: #faf8f6;
+  --color-ink-100: #f1ece7;
+  --color-ink-200: #e0d9d2;
   --color-ink-300: #c4bcb5;
-  --color-ink-400: #8c8580;
+  --color-ink-400: #948c85;
   --color-ink-500: #6e6763;
-  --color-ink-600: #57514d;
-  --color-ink-700: #403b38;
-  --color-ink-800: #2a2522;
-  --color-ink-900: #1b1816;
-  --color-ink-950: #121212;
+  --color-ink-600: #544e4a;
+  --color-ink-700: #3c3734;
+  --color-ink-800: #241f1d;
+  --color-ink-900: #171311;
+  --color-ink-950: #0d0a09;
 
-  --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, ui-sans-serif,
-    system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
+  /* ---- Three voices ----
+     Display: Bricolage Grotesque, a grotesque with real character in
+       its wide weights. Used large and sparingly.
+     Reading: Newsreader, a serif, because the long passages on this
+       site are research writing and should read like it.
+     Utility: JetBrains Mono for labels, numbers, identifiers — the
+       vernacular of the data this project produces. */
+  --font-display: "Bricolage Grotesque", "Archivo", "Helvetica Neue",
+    Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", ui-serif, serif;
+  --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono",
     Menlo, Consolas, monospace;
 
-  --radius-card: 0.75rem;
-
+  --animate-rise: rise 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
+  --animate-sweep: sweep 1.1s cubic-bezier(0.19, 1, 0.22, 1) both;
   --animate-shimmer: shimmer 7s ease-in-out infinite;
-  --animate-rise: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes shimmer {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    opacity: 0.6;
-    transform: translate3d(0, -1.5%, 0);
-  }
 }
 
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 0.75rem, 0);
+    transform: translate3d(0, 1.25rem, 0);
   }
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* The temperature scale drawing itself in, left to right. */
+@keyframes sweep {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.75;
   }
 }
 
@@ -93,11 +132,115 @@ html {
 }
 
 body {
-  background-color: var(--color-ink-50);
+  background-color: #ffffff;
   color: var(--color-ink-900);
   font-family: var(--font-sans);
+  font-synthesis-weight: none;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Long-form passages are set in the serif. Applied explicitly rather
+   than globally so labels, numbers and navigation stay in the sans. */
+.prose-serif {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  letter-spacing: 0.003em;
+}
+
+@media (min-width: 640px) {
+  .prose-serif {
+    font-size: 1.125rem;
+  }
+}
+
+/* Display headings run tight and wide — the editorial voice of the
+   site. Width comes from the variable font's wdth axis. */
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 100;
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 0.96;
+}
+
+.display-tight {
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+}
+
+/* The utility voice: mono, small, wide-tracked, used for every label,
+   identifier and piece of instrument data on the site. */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------
+   THE SIGNATURE: the radiometric scale.
+   The same bar a thermal camera prints beside its image, reused as
+   the site's structural rule. It marks the pipeline from raw capture
+   at the cold end to financial impact at the hot end.
+   ------------------------------------------------------------------ */
+.therm-ramp {
+  background-image: linear-gradient(
+    to right,
+    var(--color-therm-10) 0%,
+    var(--color-therm-25) 22%,
+    var(--color-therm-40) 42%,
+    var(--color-therm-55) 58%,
+    var(--color-therm-70) 72%,
+    var(--color-therm-85) 86%,
+    var(--color-therm-99) 100%
+  );
+}
+
+/* Stepped version — one solid block per task, no blending, so each
+   task owns an unambiguous colour. */
+.therm-steps {
+  background-image: linear-gradient(
+    to right,
+    var(--color-therm-25) 0 25%,
+    var(--color-therm-40) 25% 50%,
+    var(--color-therm-70) 50% 75%,
+    var(--color-therm-85) 75% 100%
+  );
+}
+
+/* The array itself: rows and tables of panels, drawn in CSS so it
+   costs no image request. */
+.pv-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, white 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, white 6%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 54px 30px;
+}
+
+.pv-glow {
+  background: radial-gradient(
+    55% 60% at 78% 12%,
+    color-mix(in srgb, var(--color-therm-70) 30%, transparent) 0%,
+    transparent 72%
+  );
+}
+
+/* Hairline that thickens into the accent on hover, used on the
+   editorial task rows. */
+.rule-grow {
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* Respect users who ask for less motion. */
@@ -117,37 +260,11 @@ body {
 /* Visible, on-brand focus ring for keyboard users — required for the
    accessibility pass in the Weeks 19–22 AAMU integration package. */
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-solar-500);
+  outline: 2px solid var(--color-therm-70);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
 ::selection {
-  background-color: var(--color-maroon-700);
+  background-color: var(--color-therm-25);
   color: #fff;
-}
-
-/* The photovoltaic array motif used behind dark hero panels. Drawn in
-   CSS so it costs no image request and scales to any viewport. */
-.pv-grid {
-  background-image:
-    linear-gradient(
-      to right,
-      color-mix(in srgb, white 9%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, white 7%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 46px 30px;
-}
-
-.pv-glow {
-  background: radial-gradient(
-    60% 55% at 72% 18%,
-    color-mix(in srgb, var(--color-solar-500) 42%, transparent) 0%,
-    transparent 70%
-  );
 }
