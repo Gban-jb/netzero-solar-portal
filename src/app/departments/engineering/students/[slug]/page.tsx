@@ -11,7 +11,7 @@ import {
   Section,
   StatusPill,
 } from "@/components/ui";
-import { accents, cx } from "@/lib/format";
+import { accents, cx, workstreamLabel } from "@/lib/format";
 import type { Milestone } from "@/lib/types";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const student = await getStudent(slug);
   if (!student) return { title: "Student not found" };
   return {
-    title: `Student ${student.number} — ${student.role}`,
+    title: `${student.task} — ${student.role}`,
     description: student.objective,
   };
 }
@@ -44,7 +44,7 @@ export default async function StudentPage({ params }: Params) {
   return (
     <>
       <PageHeader
-        eyebrow={`Engineering · Student ${student.number}`}
+        eyebrow={`Engineering · ${workstreamLabel(student.number)}`}
         title={student.role}
         lede={student.tagline}
         accentBar={a.bar}
@@ -52,12 +52,12 @@ export default async function StudentPage({ params }: Params) {
         <p className="mt-6 text-sm text-maroon-100/80">
           {student.name ? (
             <>
-              Workstream lead:{" "}
+              Task owner:{" "}
               <span className="font-semibold text-white">{student.name}</span>
             </>
           ) : (
             <span className="rounded bg-white/10 px-2 py-1 font-mono text-xs text-maroon-200">
-              {`Student name pending — set \`name\` in src/content/students/${student.slug}.ts`}
+              {`Owner pending — set \`name\` in src/content/students/${student.slug}.ts`}
             </span>
           )}
         </p>
@@ -68,7 +68,7 @@ export default async function StudentPage({ params }: Params) {
           { label: "Home", href: "/" },
           { label: "Departments", href: "/departments" },
           { label: "Engineering", href: "/departments/engineering" },
-          { label: `Student ${student.number}` },
+          { label: student.task },
         ]}
       />
 
@@ -77,7 +77,7 @@ export default async function StudentPage({ params }: Params) {
           <div>
             {student.awaitingStudentCopy && (
               <div className="mb-8">
-                <DraftNotice owner={`Student ${student.number}`} kind="student" />
+                <DraftNotice owner={workstreamLabel(student.number)} kind="student" />
               </div>
             )}
 
@@ -183,7 +183,7 @@ export default async function StudentPage({ params }: Params) {
                         href={`/departments/engineering/students/${s.slug}`}
                         className="text-ink-700 hover:text-maroon-700 hover:underline"
                       >
-                        <span className="font-semibold">Student {s.number}</span> — {s.role}
+                        <span className="font-semibold">{s.task}</span> — {s.role}
                       </Link>
                     </li>
                   ))}
@@ -193,19 +193,19 @@ export default async function StudentPage({ params }: Params) {
         </div>
 
         <nav
-          aria-label="Student pagination"
+          aria-label="Workstream pagination"
           className="mt-14 flex flex-col gap-3 border-t border-ink-200 pt-8 sm:flex-row sm:items-center sm:justify-between"
         >
           {prev ? (
             <Link href={`/departments/engineering/students/${prev.slug}`} className="text-sm font-semibold text-maroon-700 hover:underline">
-              &larr; Student {prev.number} — {prev.role}
+              &larr; {prev.task}
             </Link>
           ) : (
             <span />
           )}
           {next && (
             <Link href={`/departments/engineering/students/${next.slug}`} className="text-sm font-semibold text-maroon-700 hover:underline sm:text-right">
-              Student {next.number} — {next.role} &rarr;
+              {next.task} &rarr;
             </Link>
           )}
         </nav>

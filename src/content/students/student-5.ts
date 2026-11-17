@@ -14,6 +14,7 @@ export const studentFive: StudentProfile = {
   slug: "student-5",
   number: 5,
   name: "Jeeban Bashyal",
+  task: "Reporting & Portal",
   role: "Project Reporting, Site Condition Monitoring & Centralised Portal",
   tagline:
     "Weekly reporting across all five students, PV and BESS condition records, and this site",

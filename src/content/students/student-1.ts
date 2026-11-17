@@ -14,6 +14,7 @@ export const studentOne: StudentProfile = {
   slug: "student-1",
   number: 1,
   name: null,
+  task: "Thermal Imaging",
   role: "Thermal Imaging & Hotspot Detection",
   tagline: "Decoding radiometric thermal imagery and tying it to SCADA time",
   objective:

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { accents, cx, formatDate } from "@/lib/format";
+import { accents, cx, formatDate, workstreamLabel } from "@/lib/format";
 import type { Department, GalleryItem, NewsItem, StudentProfile } from "@/lib/types";
 import { Chip } from "@/components/ui";
 
@@ -81,17 +81,14 @@ export function StudentCard({ student }: { student: StudentProfile }) {
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
+        <p className={cx("text-[11px] font-bold uppercase tracking-[0.14em]", a.text)}>
+          {workstreamLabel(student.number)}
+        </p>
+
+        <div className="mt-1 flex flex-wrap items-center gap-2">
           <h3 className="font-display text-base font-extrabold tracking-tight text-ink-900">
-            Student {student.number}
+            {student.task}
           </h3>
-          {student.name ? (
-            <span className="text-sm font-semibold text-ink-700">· {student.name}</span>
-          ) : (
-            <span className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[11px] text-ink-500">
-              name pending
-            </span>
-          )}
           {student.awaitingStudentCopy && (
             <span className="rounded-full bg-solar-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-solar-700">
               Draft
@@ -99,8 +96,18 @@ export function StudentCard({ student }: { student: StudentProfile }) {
           )}
         </div>
 
-        <p className={cx("mt-1 text-sm font-semibold", a.text)}>{student.role}</p>
+        <p className="mt-1 text-sm font-semibold text-ink-700">{student.role}</p>
         <p className="mt-2 text-sm leading-relaxed text-ink-600">{student.tagline}</p>
+
+        <p className="mt-3 text-xs text-ink-500">
+          {student.name ? (
+            <>
+              Led by <span className="font-semibold text-ink-700">{student.name}</span>
+            </>
+          ) : (
+            <span className="font-mono text-[11px] text-ink-400">owner to be confirmed</span>
+          )}
+        </p>
 
         <ul className="mt-4 flex flex-wrap gap-1.5">
           {student.stack.slice(0, 4).map((s) => (

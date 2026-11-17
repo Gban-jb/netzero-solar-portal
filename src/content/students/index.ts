@@ -22,7 +22,7 @@ import { studentFive } from "./student-5";
  *
  * TO CLAIM YOUR SECTION — edit only your own file:
  *   1. Set `name` to your name (it is `null` until you do).
- *   2. Rewrite `objective`, `inputs`, `outputs` and `stack`.
+ *   2. Rewrite `task`, `role`, `objective`, `inputs`, `outputs`, `stack`.
  *   3. Update the `status` on each milestone as you go:
  *      "not-started" | "in-progress" | "under-review" | "complete"
  *   4. Add your repository and demo links in `links`.

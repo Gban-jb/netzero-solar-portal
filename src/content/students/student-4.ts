@@ -14,6 +14,7 @@ export const studentFour: StudentProfile = {
   slug: "student-4",
   number: 4,
   name: null,
+  task: "RF & Positioning",
   role: "Field Hardware, Positioning & Connectivity",
   tagline: "GPS, RTK, Wi-Fi and RF — putting findings on the map",
   objective:

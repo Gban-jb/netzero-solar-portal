@@ -71,6 +71,17 @@ export const statusStyles: Record<WorkStatus, string> = {
   complete: "bg-field-100 text-field-700 ring-field-200",
 };
 
+/**
+ * What a workstream is called in the interface.
+ *
+ * Workstreams 1–4 are the four engineering tasks and are named for the
+ * work. Workstream 5 is project reporting and this portal, which is not
+ * one of the four tasks, so it keeps the neutral label.
+ */
+export function workstreamLabel(number: number): string {
+  return number <= 4 ? `Task ${number}` : `Workstream ${number}`;
+}
+
 export function formatDate(iso: string): string {
   if (!iso) return "Date pending";
   const d = new Date(`${iso}T00:00:00Z`);

@@ -14,6 +14,7 @@ export const studentTwo: StudentProfile = {
   slug: "student-2",
   number: 2,
   name: null,
+  task: "Inspection App",
   role: "Anomaly Management & Inspection Application",
   tagline: "Turning detections into a triaged, trackable inspection list",
   objective:

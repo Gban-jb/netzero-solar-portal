@@ -67,6 +67,11 @@ export interface StudentProfile {
   number: number;
   /** Real name once confirmed; null renders the placeholder treatment. */
   name: string | null;
+  /** Short task name — two or three words. This is what the work is
+   *  called across the site: task boxes, nav chips, breadcrumbs. The
+   *  section is named for the task, never for the person doing it. */
+  task: string;
+  /** The full task title, used as the page heading. */
   role: string;
   /** Short role line used on cards. */
   tagline: string;

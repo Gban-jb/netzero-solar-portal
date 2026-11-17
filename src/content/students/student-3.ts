@@ -14,6 +14,7 @@ export const studentThree: StudentProfile = {
   slug: "student-3",
   number: 3,
   name: null,
+  task: "Energy & Cost",
   role: "Energy Loss & Financial Impact Analysis",
   tagline: "What a fault actually costs, in kilowatt-hours and in dollars",
   objective:

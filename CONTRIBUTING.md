@@ -47,7 +47,8 @@ request or raise it at the weekly meeting rather than editing it yourself.
 In your own file:
 
 1. Set `name` to your name — it is `null` until you do.
-2. Rewrite `objective`, `inputs`, `outputs` and `stack` in your own words.
+2. Rewrite `task` (the short name on your box), `role`, `objective`, `inputs`,
+   `outputs` and `stack` in your own words.
 3. Update the `status` on each milestone as you go:
    `"not-started"` | `"in-progress"` | `"under-review"` | `"complete"`
 4. Add your repository and demo links in `links`.

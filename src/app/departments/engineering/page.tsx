@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getDepartment, getGallery, getNewsByDepartment, getStudents } from "@/lib/content";
 import { GalleryCard, NewsCard, StudentCard } from "@/components/cards";
+import { TaskBoard } from "@/components/TaskBoard";
 import { Breadcrumbs, Chip, EmptyState, PageHeader, Section } from "@/components/ui";
 import { accents, cx } from "@/lib/format";
 import { notFound } from "next/navigation";
@@ -22,6 +23,11 @@ export default async function EngineeringPage() {
   ]);
   const a = accents[dept.accent];
 
+  // The four engineering tasks get a box each. Workstream 5 is project
+  // reporting and this portal rather than one of the four tasks, so it
+  // appears in the full list below but not on the board.
+  const tasks = students.filter((s) => s.number <= 4);
+
   return (
     <>
       <PageHeader
@@ -37,7 +43,7 @@ export default async function EngineeringPage() {
               href={`#${s.slug}`}
               className="rounded-full border border-white/20 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-maroon-100 transition-colors hover:bg-white/10 hover:text-white"
             >
-              Student {s.number}
+              {s.task}
             </a>
           ))}
         </div>
@@ -51,8 +57,16 @@ export default async function EngineeringPage() {
         ]}
       />
 
-      <Section>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <Section
+        title="The four engineering tasks"
+        description="Each box is one task. Open it for the objective, the input data, the deliverables and the week-by-week status."
+      >
+        <TaskBoard tasks={tasks} />
+      </Section>
+
+      <div className="border-t border-ink-200">
+        <Section>
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div>
             <p className="font-display text-xl font-bold leading-relaxed tracking-tight text-ink-900">
               {dept.summary}
@@ -95,15 +109,16 @@ export default async function EngineeringPage() {
                 </ul>
               </div>
             )}
-          </aside>
-        </div>
-      </Section>
+            </aside>
+          </div>
+        </Section>
+      </div>
 
-      {/* ----------------------------------------- Five student subsections */}
+      {/* ------------------------------------------- Every workstream in full */}
       <div className="border-y border-ink-200 bg-white" id="students">
         <Section
-          title="Student workstreams"
-          description="Five subsections, one per student. Students 1 to 4 currently show an overview written by the project manager from the agreed scope; each student replaces their own entry with their own content."
+          title="All workstreams in full"
+          description="The four engineering tasks above, plus project reporting and this portal. Each overview was written by the project manager from the agreed scope until its owner replaces it."
         >
           <div className="space-y-5">
             {students.map((student) => (
