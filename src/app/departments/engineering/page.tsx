@@ -91,7 +91,7 @@ export default async function EngineeringPage() {
         <Section
           eyebrow="The pipeline"
           title="Four tasks, in the order the data moves"
-          description="Each task hands its output to the next, which is why they are listed by that sequence rather than by number. Open one for its objective, input data, deliverables and week-by-week status."
+          description="Steps 1 to 4 follow the data rather than the task numbers: each step hands its output to the next. Open one for its objective, input data, deliverables and week-by-week status."
         >
           <TaskBoard tasks={tasks} />
         </Section>

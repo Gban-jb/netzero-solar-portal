@@ -28,6 +28,7 @@ export function TaskBoard({ tasks }: { tasks: StudentProfile[] }) {
       <ol className="grid gap-3 sm:grid-cols-2 sm:gap-4">
         {ordered.map((task, i) => {
           const tone = taskTone(task.pipelineStep);
+          const step = task.pipelineStep ?? i + 1;
           const status = task.fallMilestones[0]?.status ?? "not-started";
 
           return (
@@ -62,14 +63,19 @@ export function TaskBoard({ tasks }: { tasks: StudentProfile[] }) {
                 />
 
                 <div className="relative flex flex-1 flex-col p-5 sm:p-6">
-                  {/* Top line: stage, task number, status. */}
+                  {/* Top line: step in the sequence, then whose task
+                      it is, then status. The step is the position in
+                      the data flow and always runs 1 → 4 down the
+                      board; `task.number` is the supervisor's label
+                      for the workstream and does not match it. */}
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className={cx("label", tone.label)}>
-                        {pipelineStages[i]}
+                        Step {step} &middot; {pipelineStages[step - 1]}
                       </p>
                       <p className="label mt-1 text-ink-400">
                         Task {task.number}
+                        {task.name ? ` · ${task.name}` : ""}
                       </p>
                     </div>
                     <span className="flex items-center gap-2">

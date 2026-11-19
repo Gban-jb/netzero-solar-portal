@@ -95,7 +95,7 @@ export default async function HomePage() {
         id="tasks"
         eyebrow="The pipeline"
         title="Four tasks, in the order the data moves"
-        description="Position in the field, heat on a panel, a fault in a queue, a cost in dollars. Each task hands its output to the next one, which is why they are listed by that sequence rather than by number."
+        description="Position in the field, heat on a panel, a fault in a queue, a cost in dollars. Steps 1 to 4 below follow the data, not the task numbers — each step hands its output to the next."
       >
         <TaskBoard tasks={tasks} />
 
