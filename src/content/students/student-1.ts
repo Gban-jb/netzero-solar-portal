@@ -92,7 +92,11 @@ export const studentOne: StudentProfile = {
       href: "https://github.com/sudinpokharel/solar-pv-drone-inspection#aamu-solar-pv-inspection-platform",
     },
     {
-      label: "Frontend preview — interface only, API not yet hosted",
+      label: "Live demo — inspection workspace",
+      href: "https://solar-pv-drone-inspection-b22imsxf9ddwar2agvhe4j.streamlit.app/",
+    },
+    {
+      label: "React interface preview — API not yet hosted",
       href: "https://solarpv-inspection-platform.vercel.app/",
     },
   ],
