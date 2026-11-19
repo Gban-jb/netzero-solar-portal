@@ -17,56 +17,57 @@ export const studentTwo: StudentProfile = {
   task: "Inspection App",
   pipelineStep: 3,
   role: "Anomaly Management & Inspection Application",
-  tagline: "Turning detections into a triaged, trackable inspection list",
+  tagline: "Turning detections into a triaged, trackable inspection record",
   objective:
-    "Build the application that consumes the inspection records produced upstream and turns them into something a site team can act on — anomalies mapped to assets, sorted by severity, tracked from first detection through to resolution.",
+    "Build SOLARIS, the application that consumes inspection records produced upstream and turns them into something a site team can act on — anomalies resolved to a physical panel, row and inverter, sorted by severity, and tracked from first detection through to resolution. The deployed dashboard demonstrates the portfolio, asset and inspection-history views on bundled synthetic data; the panel-inspection, CSV-import and inverter workspaces run against a local FastAPI and SQLite service that is not yet hosted.",
   inputs: [
-    "Inspection CSV / JSON files produced by Student 1",
-    "Plant layout and asset register",
-    "Image references for each detected anomaly",
-    "Data-quality indicators from the common format",
+    "Inspection CSV / JSON files produced by Student 1, read through a previewed, confirmed import step",
+    "Plant layout and asset register, supplying stable panel, row and inverter identifiers",
+    "Image and evidence references attached to each inspection visit",
+    "Data-quality indicators from the common format, surfaced as import diagnostics",
   ],
   outputs: [
-    "Inspection and anomaly management application",
-    "Asset mapping from detection to panel, row and inverter",
-    "Severity and priority triage",
-    "Status tracking from detection to resolution, with history",
+    "SOLARIS inspection and anomaly management dashboard — portfolio overview, sites and assets, inspection history, panel inspection and data imports",
+    "FastAPI service over a versioned SQLite schema: seventeen migrations covering ingestion, workspace isolation, dataset management, equipment configuration and maintenance history",
+    "Panel inspection workspace with CSV import preview, duplicate-safe re-import, evidence upload, revisioned notes and maintenance records",
+    "Asset mapping from detection to panel, row and inverter, with severity triage and status history",
+    "Integration tests over visits, panel inspection and CSV import, plus a scripted browser verification of the import flow",
   ],
   stack: [
     "TypeScript",
-    "React",
-    "Node.js",
-    "REST / JSON",
-    "SQLite or PostgreSQL",
+    "React 19",
+    "Vite",
+    "Python / FastAPI",
+    "SQLite",
   ],
   fallMilestones: [
     {
       window: "Weeks 1–2",
       title: "Common data format agreed",
       detail:
-        "Agree the shared field set with Students 1 and 3 and begin development against synthetic or sample data rather than waiting for the Fall prototype.",
-      status: "not-started",
+        "Agree the shared field set with Students 1 and 3 and begin development against synthetic sample data rather than waiting for the Fall prototype. The application is built throughout against a synthetic array and a deterministic demo CSV; the field set still has to be reconciled with Student 1's thermal export.",
+      status: "in-progress",
     },
     {
       window: "Weeks 3–6",
       title: "Ingest and asset mapping",
       detail:
-        "Read inspection files reliably and resolve each record to a physical asset using the plant layout.",
-      status: "not-started",
+        "Inspection CSVs are imported through a preview-and-confirm step that resolves each reading to a panel, reports a mismatch when the file does not belong to the selected panel, and records a repeat import as zero new visits. Asset, site and inverter records resolve against the layout held in the database.",
+      status: "complete",
     },
     {
       window: "Weeks 7–9",
       title: "Triage and tracking",
       detail:
-        "Severity classification, prioritised queue and status tracking across the anomaly lifecycle.",
-      status: "not-started",
+        "Condition grading, a prioritised work list and status history across the anomaly lifecycle are in place, with maintenance actions and revisioned panel notes recorded against the asset. Severity thresholds are still provisional and are not yet driven by Student 1's thermal deltas.",
+      status: "in-progress",
     },
     {
       window: "Weeks 10–12",
       title: "Fall prototype and handover",
       detail:
-        "Working application on sample data, setup documentation and a recorded demonstration.",
-      status: "not-started",
+        "The application runs end to end on sample data with setup instructions and integration tests. The dashboard is published for review; hosting the API so the full workspace is reachable from the published link, and the recorded demonstration, remain outstanding.",
+      status: "in-progress",
     },
   ],
   springMilestones: [
@@ -91,7 +92,7 @@ export const studentTwo: StudentProfile = {
       href: "https://github.com/gauravdev0011-code/SolarPV-Shared-Platform",
     },
     {
-      label: "Frontend preview — interface only, API not yet hosted",
+      label: "Live demo — SOLARIS asset dashboard",
       href: "https://solarpv-asset-dashboard.vercel.app/",
     },
   ],

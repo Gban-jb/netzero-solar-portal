@@ -99,7 +99,7 @@ stack, with their own README and their own CI**:
 | Section | Program repository | Stack | Hosted |
 | --- | --- | --- | --- |
 | Student 1 | [`sudinpokharel/solar-pv-drone-inspection`](https://github.com/sudinpokharel/solar-pv-drone-inspection) | Python, React, Vite | [frontend only](https://solarpv-inspection-platform.vercel.app/) |
-| Student 2 | [`gauravdev0011-code/SolarPV-Shared-Platform`](https://github.com/gauravdev0011-code/SolarPV-Shared-Platform) | TypeScript, React, Python API | [frontend only](https://solarpv-asset-dashboard.vercel.app/) |
+| Student 2 | [`gauravdev0011-code/SolarPV-Shared-Platform`](https://github.com/gauravdev0011-code/SolarPV-Shared-Platform) | TypeScript, React, FastAPI, SQLite | [live, part](https://solarpv-asset-dashboard.vercel.app/) |
 | Student 3 | [`Gban-jb/netzero-energy-loss`](https://github.com/Gban-jb/netzero-energy-loss) | Python, pandas, Streamlit, Plotly | [live](https://netzero-energy-loss-hevaxptm6vsibgrdiweikn.streamlit.app/) |
 | Student 4 | [`Gban-jb/netzero-field-hardware`](https://github.com/Gban-jb/netzero-field-hardware) | Python, Streamlit, NMEA/RTCM, GIS | [live](https://netzero-field-hardware.streamlit.app/) |
 
@@ -108,9 +108,12 @@ repositories set aside for them, so the table records where the code actually
 is. `netzero-thermal-detection` and `netzero-inspection-app` remain empty.
 
 "Frontend only" means the interface is deployed but its Python API is not, so
-the dashboard renders and then fails every data request. Those two become live
-demonstrations once the API is hosted and the frontend is rebuilt with
-`VITE_API_BASE_URL` pointing at it.
+the dashboard renders and then fails every data request. "Live, part" means
+some of it works without the API: Student 2's overview, sites and assets, and
+inspection-history views run on synthetic data compiled into the bundle, while
+panel inspection, data imports and the inverter workspace still need the
+service. Both become complete demonstrations once the API is hosted and the
+frontend is rebuilt with `VITE_API_BASE_URL` pointing at it.
 
 The portal links to them. Each student puts their repository and demo URL in
 the `links` array in their own `src/content/students/student-N.ts` and drops
