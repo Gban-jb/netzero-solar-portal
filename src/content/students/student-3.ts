@@ -85,7 +85,10 @@ export const studentThree: StudentProfile = {
       label: "GitHub repository",
       href: "https://github.com/Gban-jb/netzero-energy-loss",
     },
-    { label: "Live demo", href: "#", pending: true },
+    {
+      label: "Live demo — energy loss dashboard",
+      href: "https://netzero-energy-loss-hevaxptm6vsibgrdiweikn.streamlit.app/",
+    },
   ],
   accent: "field",
   awaitingStudentCopy: false,
