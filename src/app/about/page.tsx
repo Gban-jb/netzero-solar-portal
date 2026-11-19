@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { scopeNotes, site, weeklyCycle } from "@/content/site";
+import {
+  equipment,
+  scopeNotes,
+  site,
+  team,
+  weeklyCycle,
+} from "@/content/site";
 import { Breadcrumbs, PageHeader, Section } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -57,6 +63,65 @@ export default function AboutPage() {
                   className="mt-1 h-2 w-2 shrink-0 rounded-full bg-maroon-600"
                 />
                 <p className="prose-serif text-[0.9375rem] text-ink-700">{note}</p>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      </div>
+
+      <Section
+        title="The team"
+        description="Five students, one workstream each. The section is named for the task rather than the person, so the record stays readable when someone hands their work on."
+      >
+        <ul className="grid max-w-5xl gap-px border border-ink-200 bg-ink-200 sm:grid-cols-2 lg:grid-cols-3">
+          {team.map((person) => (
+            <li key={person.slug} className="bg-white p-6">
+              <Link
+                href={`/departments/engineering/students/${person.slug}`}
+                className="group block"
+              >
+                <p className="display text-[1.125rem] text-ink-900 transition-colors group-hover:text-therm-55">
+                  {person.name}
+                </p>
+                <p className="label mt-2 text-ink-400">{person.task}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 max-w-3xl border-t-2 border-ink-900 pt-6">
+          <p className="prose-serif text-[0.9375rem] text-ink-600">
+            <span className="label text-ink-400">Supervisor</span>
+            <br />
+            {site.supervisor}, {site.university}
+          </p>
+          <p className="prose-serif mt-4 text-[0.9375rem] text-ink-600">
+            <span className="label text-ink-400">Mentor</span>
+            <br />
+            {site.mentor}
+          </p>
+        </div>
+      </Section>
+
+      <div className="border-y border-ink-200 bg-white">
+        <Section
+          title="The equipment"
+          description="Listed by what each instrument produces, because that is what the workstreams downstream consume. One flight yields the imagery, the positions and the log that the first two tasks run on."
+        >
+          <ul className="max-w-4xl divide-y divide-ink-200 border-y border-ink-200">
+            {equipment.map((item) => (
+              <li
+                key={item.name}
+                className="grid gap-x-8 gap-y-2 py-6 sm:grid-cols-[14rem_minmax(0,1fr)]"
+              >
+                <div>
+                  <h3 className="display text-[1.0625rem] text-ink-900">
+                    {item.name}
+                  </h3>
+                  <p className="label mt-1.5 text-ink-400">{item.role}</p>
+                </div>
+                <p className="prose-serif text-[0.9375rem] text-ink-600">
+                  {item.detail}
+                </p>
               </li>
             ))}
           </ul>

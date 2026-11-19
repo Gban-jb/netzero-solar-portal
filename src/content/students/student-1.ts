@@ -13,7 +13,7 @@ import type { StudentProfile } from "@/lib/types";
 export const studentOne: StudentProfile = {
   slug: "student-1",
   number: 1,
-  name: null,
+  name: "Sudin Pokharel",
   task: "Thermal Imaging",
   pipelineStep: 2,
   role: "Thermal Imaging & Hotspot Detection",

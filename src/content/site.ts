@@ -6,6 +6,7 @@ export const site = {
   initiative: "Net Zero: AAMU Solar Electric Initiative",
   project: "Solar PV Drone Monitoring & Battery Energy Storage",
   supervisor: "Dr. Raziq Yaqub",
+  mentor: "Julian",
   description:
     "The centralised project portal for AAMU's Solar PV Drone Monitoring and Battery Energy Storage research programme — bringing five engineering workstreams and five academic departments into a single public record.",
   /** Updated when the site is deployed to its production domain. */
@@ -16,6 +17,62 @@ export const site = {
   currentWeek: 12,
   totalWeeks: 25,
 } as const;
+
+/**
+ * THE EQUIPMENT
+ * -------------
+ * What the project actually flies and measures with. Listed by what
+ * each instrument produces, because that is what the workstreams
+ * downstream consume. Named equipment only — anything still being
+ * specified stays off this list until it exists.
+ */
+export const equipment = [
+  {
+    name: "DJI Matrice 4TD",
+    role: "Survey aircraft",
+    detail:
+      "Carries the RGB and radiometric thermal payload and records GPS/RTK position and flight telemetry for every capture. One flight produces the imagery, the positions and the log that the first two tasks run on.",
+  },
+  {
+    name: "Radiometric thermal payload",
+    role: "Temperature per pixel",
+    detail:
+      "Thermal frames that carry absolute temperature rather than a colour picture, so a hotspot can be measured against the panel around it instead of judged by eye.",
+  },
+  {
+    name: "GNSS / RTK positioning",
+    role: "Where the finding is",
+    detail:
+      "Corrected positioning accurate enough to tie an observation to a row and table, which is what makes an inspection repeatable from one flight to the next.",
+  },
+  {
+    name: "RF and Wi-Fi survey equipment",
+    role: "Whether data can leave the site",
+    detail:
+      "Spectrum activity, signal strength, coverage and interference around the array — the conditions any site telemetry has to survive.",
+  },
+  {
+    name: "Multispectral sensing",
+    role: "Reflectance by wavelength",
+    detail:
+      "Reflected light at several wavelengths, held as a research input rather than part of the weekly inspection cycle.",
+  },
+] as const;
+
+/**
+ * THE TEAM
+ * --------
+ * Five students and the staff supervising them. The workstream a
+ * student owns is named by task, not by person — `task` here is the
+ * cross-reference into `src/content/students/`.
+ */
+export const team = [
+  { name: "Sudin Pokharel", task: "Thermal Imaging", slug: "student-1" },
+  { name: "Gaurav Dev", task: "Inspection App", slug: "student-2" },
+  { name: "Prashant Banjade", task: "Energy & Cost", slug: "student-3" },
+  { name: "Armaan Asim", task: "RF & Positioning", slug: "student-4" },
+  { name: "Jeeban Bashyal", task: "Reporting & Portal", slug: "student-5" },
+] as const;
 
 export const projectStats: ProjectStat[] = [
   {

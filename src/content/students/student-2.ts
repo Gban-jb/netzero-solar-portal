@@ -13,7 +13,7 @@ import type { StudentProfile } from "@/lib/types";
 export const studentTwo: StudentProfile = {
   slug: "student-2",
   number: 2,
-  name: null,
+  name: "Gaurav Dev",
   task: "Inspection App",
   pipelineStep: 3,
   role: "Anomaly Management & Inspection Application",
