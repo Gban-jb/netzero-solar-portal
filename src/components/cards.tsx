@@ -156,8 +156,17 @@ export function GalleryCard({ item }: { item: GalleryItem }) {
         </p>
         <p className="label mt-2 text-ink-400">
           {item.location || "Location pending"}
-          {item.capturedOn ? ` · ${formatDate(item.capturedOn)}` : " · date pending"}
+          {item.reference
+            ? ""
+            : item.capturedOn
+              ? ` · ${formatDate(item.capturedOn)}`
+              : " · date pending"}
         </p>
+        {item.reference && (
+          <p className="label mt-2 inline-block border border-ink-200 px-2 py-1 text-ink-500">
+            Reference image · not AAMU site data
+          </p>
+        )}
         {item.flightId && (
           <p className="label mt-1 text-ink-400">Flight {item.flightId}</p>
         )}

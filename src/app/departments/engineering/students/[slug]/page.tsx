@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { students as allStudents } from "@/content/students";
+import { gallery } from "@/content/gallery";
 import { getStudent, getStudents } from "@/lib/content";
 import {
   Breadcrumbs,
@@ -40,6 +41,9 @@ export default async function StudentPage({ params }: Params) {
   const prev = idx > 0 ? all[idx - 1] : null;
   const next = idx < all.length - 1 ? all[idx + 1] : null;
   const tone = taskTone(student.pipelineStep);
+  const taskImages = gallery.filter(
+    (img) => img.taskSlug === student.slug && img.src,
+  );
   const stage =
     typeof student.pipelineStep === "number"
       ? pipelineStages[student.pipelineStep - 1]
@@ -199,6 +203,53 @@ export default async function StudentPage({ params }: Params) {
             </nav>
           </aside>
         </div>
+
+        {taskImages.length > 0 && (
+          <section
+            aria-labelledby="reference-imagery"
+            className="mt-16 border-t border-ink-200 pt-10"
+          >
+            <h2
+              id="reference-imagery"
+              className="label border-b border-ink-200 pb-3 text-ink-500"
+            >
+              Reference imagery
+            </h2>
+            <p className="prose-serif mt-4 max-w-2xl text-ink-600">
+              What this task looks like in practice. These are reference
+              photographs of the equipment and output involved, not captures
+              from the AAMU site — site imagery appears in the{" "}
+              <Link href="/gallery" className="underline hover:text-therm-55">
+                gallery
+              </Link>{" "}
+              as it is produced.
+            </p>
+            <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {taskImages.map((img, i) => (
+                <li
+                  key={img.id}
+                  className="animate-drop"
+                  style={{ animationDelay: `${i * 90}ms` }}
+                >
+                  <figure>
+                    <div className="aspect-[4/3] w-full overflow-hidden border border-ink-200 bg-ink-100">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <figcaption className="label mt-3 text-ink-500">
+                      {img.caption}
+                    </figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <nav
           aria-label="Workstream pagination"

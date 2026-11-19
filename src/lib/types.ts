@@ -123,6 +123,19 @@ export interface GalleryItem {
   department: DepartmentSlug | "project";
   /** Drone flight identifier, when the image came from a flight. */
   flightId?: string;
+  /**
+   * The task this image illustrates, by student slug. Set it and the
+   * image appears on that task's page under "Reference imagery" as
+   * well as in the gallery. Leave it off for images that belong to
+   * the project as a whole rather than to one workstream.
+   */
+  taskSlug?: string;
+  /**
+   * True when the image is a reference or illustrative photograph
+   * rather than a capture from the AAMU site. The gallery labels
+   * these so site data is never confused with stock imagery.
+   */
+  reference?: boolean;
 }
 
 export interface ProjectStat {
