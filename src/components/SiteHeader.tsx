@@ -49,6 +49,7 @@ const nav: NavItem[] = [
   { label: "Gallery", href: "/gallery" },
   { label: "Alongside", href: "/departments" },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function SiteHeader() {

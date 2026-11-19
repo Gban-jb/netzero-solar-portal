@@ -14,6 +14,7 @@ const elsewhere = [
   { label: "Photo gallery", href: "/gallery" },
   { label: "Alongside the engineering work", href: "/departments" },
   { label: "About & scope", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function SiteFooter() {

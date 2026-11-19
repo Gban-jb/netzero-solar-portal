@@ -19,6 +19,48 @@ export const site = {
 } as const;
 
 /**
+ * WHAT THE PROJECT IS TRYING TO DO
+ * --------------------------------
+ * Five objectives, written as the thing being attempted rather than
+ * the thing being claimed. Each one names what would count as having
+ * achieved it, because an objective that cannot be checked is not an
+ * objective. They map onto the four tasks, plus the reporting work
+ * that runs across all of them.
+ */
+export const objectives = [
+  {
+    number: "01",
+    title: "Inspect the array from the air",
+    detail:
+      "Fly the array with RGB and radiometric thermal imagery and find the panels that are running hot or look wrong on the surface. Achieved when a flight reliably produces a list of candidate findings rather than a folder of pictures.",
+  },
+  {
+    number: "02",
+    title: "Know where each finding is",
+    detail:
+      "Use GPS and RTK positioning to tie an observation to a row and a table. Achieved when the same panel can be found again on the next flight without someone recognising it by eye.",
+  },
+  {
+    number: "03",
+    title: "Measure the radio conditions on site",
+    detail:
+      "Survey spectrum activity, Wi-Fi coverage, signal strength and interference around the array. Achieved when the project can say what a link on this site will and will not support.",
+  },
+  {
+    number: "04",
+    title: "Say what a fault is costing",
+    detail:
+      "Read the inspection findings against whatever plant monitoring data is available and estimate the energy, and the money, a given fault is losing. Achieved when a finding carries a number a maintenance decision can be argued from.",
+  },
+  {
+    number: "05",
+    title: "Keep the record in one place",
+    detail:
+      "Hold the findings, the weekly reports and the site condition log in a single record that can be read, sorted and handed over. Achieved when the university can take the whole thing on without the team explaining it.",
+  },
+] as const;
+
+/**
  * THE EQUIPMENT
  * -------------
  * What the project actually flies and measures with. Listed by what

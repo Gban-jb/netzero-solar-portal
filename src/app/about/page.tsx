@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   equipment,
+  objectives,
   scopeNotes,
   site,
   team,
@@ -24,6 +25,32 @@ export default function AboutPage() {
         lede="This is a standalone research portal, kept in a structure Alabama A&M University can take over. It shares information; it is not a live dashboard, and every item on it is added by hand after review."
       />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "About" }]} />
+
+      <Section
+        id="objectives"
+        eyebrow="Objectives"
+        title="What the project is trying to do"
+        description="Five objectives, each written with the thing that would count as having achieved it. An objective that cannot be checked is not an objective."
+      >
+        <ol className="grid max-w-5xl gap-x-10 gap-y-8 sm:grid-cols-2">
+          {objectives.map((o) => (
+            <li key={o.number} className="border-t-2 border-ink-900 pt-6">
+              <span
+                aria-hidden="true"
+                className="display text-[2.5rem] leading-none text-ink-200"
+              >
+                {o.number}
+              </span>
+              <h3 className="display mt-2 text-[1.25rem] text-ink-900">
+                {o.title}
+              </h3>
+              <p className="prose-serif mt-3 text-[0.9375rem] text-ink-600">
+                {o.detail}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </Section>
 
       <Section
         title="The weekly cycle"
