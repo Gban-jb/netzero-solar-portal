@@ -1,5 +1,7 @@
 # Net Zero Solar Portal
 
+**Live at <https://netzero-solar-portal.vercel.app>**
+
 The centralised project website for the **Solar PV Drone Monitoring & Battery
 Energy Storage** research programme at **Alabama A&M University**, part of the
 [Net Zero: AAMU Solar Electric Initiative](https://www.aamu.edu/research-economic-development/net-zero-solar-electric-initiative/index.html).
@@ -13,7 +15,7 @@ structure AAMU can take over and merge into their own Net Zero Solar pages.
 ## Quick start
 
 ```bash
-git clone <this-repo-url>
+git clone https://github.com/Gban-jb/netzero-solar-portal.git
 cd netzero-solar-portal
 npm install
 npm run dev          # http://localhost:3000
@@ -206,10 +208,31 @@ page is readable before the webfonts arrive.
 
 ## Deployment
 
+**Live site: <https://netzero-solar-portal.vercel.app>**
+
 Hosted on Vercel, connected to this repository:
 
 - A push to `main` deploys to production.
 - Every pull request gets its own preview URL for review before merge.
+
+Two things worth knowing before your first push:
+
+- **Set your git author to an address GitHub recognises.** Vercel blocks a
+  deployment whose commit author it cannot match to an account, and the
+  deployment reports `BLOCKED` with an empty build log rather than an error
+  that says so. If `git config user.email` is unset, git invents
+  `you@your-machine.local`, which matches nobody. Use your GitHub noreply
+  address:
+
+  ```sh
+  git config --global user.email "<id>+<username>@users.noreply.github.com"
+  git config --global user.name "<Your Name>"
+  ```
+
+- **Deployment Protection must stay off** for the site to be publicly
+  readable. With Vercel Authentication enabled, every URL answers `302` to
+  `vercel.com/sso-api` and only logged-in team members see the portal, even
+  when the deployment itself is healthy.
 
 ## Handover to AAMU
 
