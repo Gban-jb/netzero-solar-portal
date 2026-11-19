@@ -93,7 +93,7 @@ export const studentTwo: StudentProfile = {
     },
     {
       label: "Live demo — SOLARIS asset dashboard",
-      href: "https://solarpv-asset-dashboard.vercel.app/",
+      href: "https://solar-pv-shared-platform.vercel.app/",
     },
   ],
   accent: "maroon",

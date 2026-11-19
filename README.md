@@ -99,7 +99,7 @@ stack, with their own README and their own CI**:
 | Section | Program repository | Stack | Hosted |
 | --- | --- | --- | --- |
 | Student 1 | [`sudinpokharel/solar-pv-drone-inspection`](https://github.com/sudinpokharel/solar-pv-drone-inspection) | Python, React, Vite | [frontend only](https://solarpv-inspection-platform.vercel.app/) |
-| Student 2 | [`gauravdev0011-code/SolarPV-Shared-Platform`](https://github.com/gauravdev0011-code/SolarPV-Shared-Platform) | TypeScript, React, FastAPI, SQLite | [live, part](https://solarpv-asset-dashboard.vercel.app/) |
+| Student 2 | [`gauravdev0011-code/SolarPV-Shared-Platform`](https://github.com/gauravdev0011-code/SolarPV-Shared-Platform) | TypeScript, React, FastAPI, SQLite | [live, part](https://solar-pv-shared-platform.vercel.app/) |
 | Student 3 | [`Gban-jb/netzero-energy-loss`](https://github.com/Gban-jb/netzero-energy-loss) | Python, pandas, Streamlit, Plotly | [live](https://netzero-energy-loss-hevaxptm6vsibgrdiweikn.streamlit.app/) |
 | Student 4 | [`Gban-jb/netzero-field-hardware`](https://github.com/Gban-jb/netzero-field-hardware) | Python, Streamlit, NMEA/RTCM, GIS | [live](https://netzero-field-hardware.streamlit.app/) |
 
