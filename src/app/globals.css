@@ -75,19 +75,30 @@
   --color-ink-900: #171311;
   --color-ink-950: #0d0a09;
 
-  /* ---- Three voices ----
-     Display: Bricolage Grotesque, a grotesque with real character in
-       its wide weights. Used large and sparingly.
-     Reading: Newsreader, a serif, because the long passages on this
-       site are research writing and should read like it.
-     Utility: JetBrains Mono for labels, numbers, identifiers — the
-       vernacular of the data this project produces. */
-  --font-display: "Bricolage Grotesque", "Archivo", "Helvetica Neue",
-    Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+  /* ---- Four voices ----
+     Display: Fraunces, a high-contrast variable serif. Its WONK axis
+       is pinned on, which gives the swashed `g`, angled `e` and
+       flared terminals that carry the headlines. Optical sizing is
+       left on `auto`, so the same family stays elegant at 60px and
+       still legible at 13px in the nav.
+     Interface: Schibsted Grotesk for navigation, buttons and short
+       copy — a quiet grotesque that lets the serif lead.
+     Reading: Newsreader for long passages, because the writing on
+       this site is research writing and should read like it. Low
+       contrast and text-optimised, so it never competes with Fraunces.
+     Utility: IBM Plex Mono for labels, numbers and identifiers — the
+       vernacular of the data this project produces.
+
+     Italics are not loaded: nothing on the site sets them, and
+     dropping them halves the download. Add the `ital` axis back to
+     FONT_HREF in `layout.tsx` before using one, or the browser will
+     synthesise a slanted fake. */
+  --font-display: "Fraunces", "Newsreader", Georgia, "Times New Roman",
+    ui-serif, serif;
   --font-serif: "Newsreader", Georgia, "Times New Roman", ui-serif, serif;
-  --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui,
+  --font-sans: "Schibsted Grotesk", ui-sans-serif, system-ui,
     -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono",
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono",
     Menlo, Consolas, monospace;
 
   --animate-rise: rise 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
@@ -157,6 +168,7 @@ body {
    than globally so labels, numbers and navigation stay in the sans. */
 .prose-serif {
   font-family: var(--font-serif);
+  font-optical-sizing: auto;
   font-size: 1.0625rem;
   line-height: 1.7;
   letter-spacing: 0.003em;
@@ -168,28 +180,38 @@ body {
   }
 }
 
-/* Display headings run tight and wide — the editorial voice of the
-   site. Width comes from the variable font's wdth axis. */
+/* Display headings — the editorial voice of the site. WONK is pinned
+   on for Fraunces's swashed, angled forms; SOFT stays at 0 so the
+   terminals keep their sharpness. opsz is deliberately NOT set here:
+   leaving `font-optical-sizing: auto` lets the face thin its strokes
+   as it grows and thicken them as it shrinks, which is the whole
+   point of using an optical-size family for both a 60px banner and a
+   13px nav link. */
 .display {
   font-family: var(--font-display);
-  font-variation-settings: "wdth" 100;
-  font-weight: 800;
-  letter-spacing: -0.028em;
-  line-height: 0.96;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  font-weight: 700;
+  letter-spacing: -0.016em;
+  line-height: 1;
 }
 
+/* A serif carries more vertical weight than the grotesque this
+   replaced, so the tight variant is less tight than it was. */
 .display-tight {
-  line-height: 0.9;
-  letter-spacing: -0.035em;
+  line-height: 0.95;
+  letter-spacing: -0.022em;
 }
 
 /* The utility voice: mono, small, wide-tracked, used for every label,
    identifier and piece of instrument data on the site. */
+/* IBM Plex Mono sets a little wider than the mono it replaced, so the
+   tracking comes in slightly to keep these labels the same measure. */
 .label {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.145em;
   text-transform: uppercase;
 }
 

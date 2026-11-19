@@ -209,6 +209,16 @@ Colours follow the [AAMU Brand Guide](https://www.aamu.edu/brand): AAMU Maroon
 agrivoltaic and soil side). All tokens are defined in one place,
 `src/app/globals.css`.
 
+Type is four voices: **Fraunces** for display, **Schibsted Grotesk** for the
+interface, **Newsreader** for long-form reading and **IBM Plex Mono** for
+labels and data. Fraunces carries its `WONK` axis switched on and its optical
+size left on `auto`, so one family holds both a 60px banner and a 13px nav
+link without a second cut.
+
+Italics are not downloaded — nothing on the site sets them. Add the `ital`
+axis back to `FONT_HREF` in `src/app/layout.tsx` before using one, or the
+browser will synthesise a slanted fake.
+
 Fonts load from Google Fonts via a stylesheet link rather than
 `next/font/google`. `next/font` downloads font files **at build time**, which
 fails on any machine or CI runner that cannot reach `fonts.googleapis.com` —
