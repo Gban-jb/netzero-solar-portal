@@ -11,113 +11,107 @@ import {
 /**
  * THE FOUR TASKS
  * --------------
- * Set as full-width editorial entries rather than a grid of cards:
- * these are the four pieces of work the whole project consists of,
- * and they are listed in the order the data moves through them.
+ * One outer frame holding four smaller boxes, one per task, laid out
+ * in the order the data moves through them. The frame is the pipeline;
+ * each box is a stage of it.
  *
- * Each entry carries its position on the radiometric ramp. Motion is
- * CSS only — the rule across the top draws in on hover and focus, and
- * the entries rise in sequence on load — so the page stays a static
- * server-rendered document.
+ * Motion is CSS only — the boxes drop in from above in sequence on
+ * load, and each box lifts slightly under the pointer — so the page
+ * stays a static server-rendered document. `prefers-reduced-motion`
+ * is honoured globally in `globals.css`.
  */
 export function TaskBoard({ tasks }: { tasks: StudentProfile[] }) {
   const ordered = inPipelineOrder(tasks);
 
   return (
-    <ol className="border-t border-ink-200">
-      {ordered.map((task, i) => {
-        const tone = taskTone(task.pipelineStep);
-        const status = task.fallMilestones[0]?.status ?? "not-started";
+    <div className="border border-ink-200 bg-ink-50/40 p-3 sm:p-5">
+      <ol className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+        {ordered.map((task, i) => {
+          const tone = taskTone(task.pipelineStep);
+          const status = task.fallMilestones[0]?.status ?? "not-started";
 
-        return (
-          <li
-            key={task.slug}
-            className="animate-rise border-b border-ink-200"
-            style={{ animationDelay: `${i * 90}ms` }}
-          >
-            <Link
-              href={`/departments/engineering/students/${task.slug}`}
-              className="group relative block"
+          return (
+            <li
+              key={task.slug}
+              className="animate-drop"
+              style={{ animationDelay: `${i * 110}ms` }}
             >
-              {/* The ramp colour, drawn across the entry on hover. */}
-              <span
-                aria-hidden="true"
+              <Link
+                href={`/departments/engineering/students/${task.slug}`}
                 className={cx(
-                  "rule-grow absolute inset-x-0 top-0 h-[3px] scale-x-0",
-                  "group-hover:scale-x-100 group-focus-visible:scale-x-100",
-                  tone.block,
+                  "group relative flex h-full flex-col border border-ink-200 bg-white",
+                  "transition-[transform,border-color,box-shadow] duration-500",
+                  "hover:-translate-y-1 hover:border-ink-300 hover:shadow-[0_18px_40px_-28px_rgba(23,19,17,0.55)]",
+                  "focus-visible:-translate-y-1 focus-visible:border-ink-300",
                 )}
-              />
-              {/* Faint wash of the same hue. */}
-              <span
-                aria-hidden="true"
-                className={cx(
-                  "absolute inset-0 opacity-0 transition-opacity duration-500",
-                  "group-hover:opacity-100 group-focus-visible:opacity-100",
-                  tone.soft,
-                )}
-              />
+              >
+                {/* The ramp colour, banded across the top of the box. */}
+                <span
+                  aria-hidden="true"
+                  className={cx("block h-1.5 w-full shrink-0", tone.block)}
+                />
 
-              <div className="relative grid gap-x-10 gap-y-4 py-8 sm:py-10 lg:grid-cols-[13rem_minmax(0,1fr)_auto]">
-                {/* Left: where this sits in the pipeline. */}
-                <div className="flex items-start gap-3 lg:block">
-                  <span
-                    aria-hidden="true"
-                    className={cx("block h-10 w-1.5 shrink-0", tone.block)}
-                  />
-                  <div className="lg:mt-3">
-                    <p className={cx("label", tone.label)}>
-                      {pipelineStages[i]}
-                    </p>
-                    <p className="label mt-1 text-ink-400">
-                      Task {task.number}
-                    </p>
+                {/* Faint wash of the same hue, on hover. */}
+                <span
+                  aria-hidden="true"
+                  className={cx(
+                    "pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500",
+                    "group-hover:opacity-100 group-focus-visible:opacity-100",
+                    tone.soft,
+                  )}
+                />
+
+                <div className="relative flex flex-1 flex-col p-5 sm:p-6">
+                  {/* Top line: stage, task number, status. */}
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className={cx("label", tone.label)}>
+                        {pipelineStages[i]}
+                      </p>
+                      <p className="label mt-1 text-ink-400">
+                        Task {task.number}
+                      </p>
+                    </div>
+                    <span className="flex items-center gap-2">
+                      <span
+                        aria-hidden="true"
+                        className={cx(
+                          "h-1.5 w-1.5 rounded-full",
+                          status === "not-started" ? "bg-ink-300" : tone.dot,
+                        )}
+                      />
+                      <span className="label text-ink-500">
+                        {statusLabels[status]}
+                      </span>
+                    </span>
                   </div>
-                </div>
 
-                {/* Middle: the task itself. */}
-                <div className="min-w-0">
+                  {/* The task itself. */}
                   <h3
                     className={cx(
-                      "display text-[1.75rem] leading-[1.05] text-ink-900 sm:text-[2.25rem]",
-                      "transition-transform duration-500 group-hover:translate-x-1",
+                      "display mt-6 text-[1.375rem] leading-[1.1] text-ink-900 sm:text-[1.5rem]",
+                      "transition-transform duration-500 group-hover:translate-x-0.5",
                     )}
                   >
                     {task.role}
                   </h3>
-                  <p className="prose-serif mt-3 max-w-2xl text-ink-600">
+                  <p className="prose-serif mt-3 text-[0.95rem] text-ink-600">
                     {task.tagline}
                   </p>
-                  <ul className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+
+                  {/* Stack, pushed to the foot so the boxes line up. */}
+                  <ul className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-6">
                     {task.stack.slice(0, 4).map((s) => (
-                      <li
-                        key={s}
-                        className="font-mono text-[11px] text-ink-500"
-                      >
+                      <li key={s} className="font-mono text-[11px] text-ink-500">
                         {s}
                       </li>
                     ))}
                   </ul>
-                </div>
 
-                {/* Right: status and the way in. */}
-                <div className="flex items-center gap-4 lg:flex-col lg:items-end lg:justify-between lg:py-1">
-                  <span className="flex items-center gap-2">
-                    <span
-                      aria-hidden="true"
-                      className={cx(
-                        "h-1.5 w-1.5 rounded-full",
-                        status === "not-started" ? "bg-ink-300" : tone.dot,
-                      )}
-                    />
-                    <span className="label text-ink-500">
-                      {statusLabels[status]}
-                    </span>
-                  </span>
                   <span
                     aria-hidden="true"
                     className={cx(
-                      "font-display text-2xl font-bold transition-transform duration-500",
+                      "mt-5 self-end font-display text-2xl font-bold transition-transform duration-500",
                       "group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5",
                       tone.label,
                     )}
@@ -125,11 +119,11 @@ export function TaskBoard({ tasks }: { tasks: StudentProfile[] }) {
                     &rarr;
                   </span>
                 </div>
-              </div>
-            </Link>
-          </li>
-        );
-      })}
-    </ol>
+              </Link>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
   );
 }
