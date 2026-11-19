@@ -84,7 +84,10 @@ export const studentFour: StudentProfile = {
       label: "GitHub repository",
       href: "https://github.com/Gban-jb/netzero-field-hardware",
     },
-    { label: "Live demo", href: "#", pending: true },
+    {
+      label: "Live demo — RF & positioning dashboard",
+      href: "https://netzero-field-hardware.streamlit.app/",
+    },
   ],
   accent: "slate",
   awaitingStudentCopy: true,
