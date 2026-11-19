@@ -90,7 +90,10 @@ export const studentTwo: StudentProfile = {
       label: "GitHub repository",
       href: "https://github.com/gauravdev0011-code/SolarPV-Shared-Platform",
     },
-    { label: "Live demo", href: "#", pending: true },
+    {
+      label: "Frontend preview — interface only, API not yet hosted",
+      href: "https://solarpv-asset-dashboard.vercel.app/",
+    },
   ],
   accent: "maroon",
   awaitingStudentCopy: true,
