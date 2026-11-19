@@ -88,7 +88,7 @@ export const studentTwo: StudentProfile = {
   links: [
     {
       label: "GitHub repository",
-      href: "https://github.com/Gban-jb/netzero-inspection-app",
+      href: "https://github.com/gauravdev0011-code/SolarPV-Shared-Platform",
     },
     { label: "Live demo", href: "#", pending: true },
   ],

@@ -88,7 +88,7 @@ export const studentOne: StudentProfile = {
   ],
   links: [
     {
-      label: "Inspection app source and setup (GitHub access required)",
+      label: "Inspection app source and setup",
       href: "https://github.com/sudinpokharel/solar-pv-drone-inspection#aamu-solar-pv-inspection-platform",
     },
     { label: "Live demo", href: "#", pending: true },
