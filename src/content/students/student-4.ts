@@ -80,7 +80,10 @@ export const studentFour: StudentProfile = {
     },
   ],
   links: [
-    { label: "GitHub repository", href: "#", pending: true },
+    {
+      label: "GitHub repository",
+      href: "https://github.com/Gban-jb/netzero-field-hardware",
+    },
     { label: "Live demo", href: "#", pending: true },
   ],
   accent: "slate",
