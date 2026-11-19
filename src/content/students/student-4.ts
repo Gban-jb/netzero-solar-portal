@@ -88,6 +88,10 @@ export const studentFour: StudentProfile = {
       label: "Live demo — RF & positioning dashboard",
       href: "https://netzero-field-hardware.streamlit.app/",
     },
+    {
+      label: "Vercel edition",
+      href: "https://aamu-student4-rf-dashboard.vercel.app/",
+    },
   ],
   accent: "slate",
   awaitingStudentCopy: true,
